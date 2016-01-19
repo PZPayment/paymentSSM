@@ -21,6 +21,11 @@ public interface BaseDao<T extends Serializable ,E, ID extends Serializable> {
 
 	List<T> selectByExample(E example);
 
+	/**
+	 * 根据ID查询信息
+	 * @param id
+	 * @return
+	 */
 	T selectByPrimaryKey(ID id);
 
 	T selectByOutNo(String outOrderNo);

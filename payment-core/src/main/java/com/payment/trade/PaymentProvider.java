@@ -32,7 +32,7 @@ public class PaymentProvider {
     public PaymentResultBO payment(PaymentBO paymentBO) throws Exception {
         PaymentResultBO paymentResultBO = new PaymentResultBO();
 
-        PayTradeOrder tradeOrder = tradeOrderService.findOneByOutTradeNo(paymentBO.getOrderNo());
+        PayTradeOrder tradeOrder = tradeOrderService.selectByPrimaryKey(paymentBO.getOrderNo());
         if (tradeOrder == null) {
             //封装支付单信息
             tradeOrder.setPayUserId("13123");

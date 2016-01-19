@@ -1,13 +1,11 @@
 package com.payment.generator.domain;
 
-import com.payment.comm.base.domain.AbstractCriteria;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-public class PayTradeOrderCriteria extends AbstractCriteria {
+public class PayTradeOrderCriteria {
     protected String orderByClause;
 
     protected boolean distinct;
