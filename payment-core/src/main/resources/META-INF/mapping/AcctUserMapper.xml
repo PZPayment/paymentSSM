@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.payment.generator.dao.AcctUserMapper" >
+  <resultMap id="BaseResultMap" type="com.payment.generator.domain.AcctUser" >
+    <id column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="PAY_PSW" property="payPsw" jdbcType="VARCHAR" />
+    <result column="IS_USE_PAY_PSW" property="isUsePayPsw" jdbcType="DECIMAL" />
+    <result column="COUNT_INVALID_PWD" property="countInvalidPwd" jdbcType="DECIMAL" />
+    <result column="PWD_STRENGTH" property="pwdStrength" jdbcType="DECIMAL" />
+    <result column="PAY_BASE_KEY" property="payBaseKey" jdbcType="VARCHAR" />
+    <result column="PAY_PSW_TYPE" property="payPswType" jdbcType="DECIMAL" />
+    <result column="PSW_QUEST" property="pswQuest" jdbcType="VARCHAR" />
+    <result column="PSW_ANS" property="pswAns" jdbcType="VARCHAR" />
+    <result column="ID_TYPE" property="idType" jdbcType="DECIMAL" />
+    <result column="ID_NO" property="idNo" jdbcType="VARCHAR" />
+    <result column="ACCT_STATE" property="acctState" jdbcType="DECIMAL" />
+    <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
+    <result column="EMAILL" property="emaill" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+    <result column="REAL_CHECK" property="realCheck" jdbcType="DECIMAL" />
+    <result column="CREDIT_GRADE" property="creditGrade" jdbcType="DECIMAL" />
+    <result column="REG_IP" property="regIp" jdbcType="VARCHAR" />
+    <result column="REG_TIME" property="regTime" jdbcType="DATE" />
+    <result column="LAST_LOG_TIME" property="lastLogTime" jdbcType="DATE" />
+    <result column="LAST_LOG_IP" property="lastLogIp" jdbcType="VARCHAR" />
+    <result column="ERR_LOG_NUM" property="errLogNum" jdbcType="DECIMAL" />
+    <result column="ERR_LOG_TIME" property="errLogTime" jdbcType="DATE" />
+    <result column="COMPANY_NAME" property="companyName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    USER_ID, PAY_PSW, IS_USE_PAY_PSW, COUNT_INVALID_PWD, PWD_STRENGTH, PAY_BASE_KEY, 
+    PAY_PSW_TYPE, PSW_QUEST, PSW_ANS, ID_TYPE, ID_NO, ACCT_STATE, REAL_NAME, EMAILL, 
+    MOBILE, REAL_CHECK, CREDIT_GRADE, REG_IP, REG_TIME, LAST_LOG_TIME, LAST_LOG_IP, ERR_LOG_NUM, 
+    ERR_LOG_TIME, COMPANY_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payment.generator.domain.AcctUserCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from KAN_ACCT_USER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from KAN_ACCT_USER
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from KAN_ACCT_USER
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.payment.generator.domain.AcctUserCriteria" >
+    delete from KAN_ACCT_USER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.payment.generator.domain.AcctUser" >
+    insert into KAN_ACCT_USER (USER_ID, PAY_PSW, IS_USE_PAY_PSW, 
+      COUNT_INVALID_PWD, PWD_STRENGTH, PAY_BASE_KEY, 
+      PAY_PSW_TYPE, PSW_QUEST, PSW_ANS, 
+      ID_TYPE, ID_NO, ACCT_STATE, 
+      REAL_NAME, EMAILL, MOBILE, 
+      REAL_CHECK, CREDIT_GRADE, REG_IP, 
+      REG_TIME, LAST_LOG_TIME, LAST_LOG_IP, 
+      ERR_LOG_NUM, ERR_LOG_TIME, COMPANY_NAME
+      )
+    values (#{userId,jdbcType=VARCHAR}, #{payPsw,jdbcType=VARCHAR}, #{isUsePayPsw,jdbcType=DECIMAL}, 
+      #{countInvalidPwd,jdbcType=DECIMAL}, #{pwdStrength,jdbcType=DECIMAL}, #{payBaseKey,jdbcType=VARCHAR}, 
+      #{payPswType,jdbcType=DECIMAL}, #{pswQuest,jdbcType=VARCHAR}, #{pswAns,jdbcType=VARCHAR}, 
+      #{idType,jdbcType=DECIMAL}, #{idNo,jdbcType=VARCHAR}, #{acctState,jdbcType=DECIMAL}, 
+      #{realName,jdbcType=VARCHAR}, #{emaill,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{realCheck,jdbcType=DECIMAL}, #{creditGrade,jdbcType=DECIMAL}, #{regIp,jdbcType=VARCHAR}, 
+      #{regTime,jdbcType=DATE}, #{lastLogTime,jdbcType=DATE}, #{lastLogIp,jdbcType=VARCHAR}, 
+      #{errLogNum,jdbcType=DECIMAL}, #{errLogTime,jdbcType=DATE}, #{companyName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.payment.generator.domain.AcctUser" >
+    insert into KAN_ACCT_USER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="payPsw != null" >
+        PAY_PSW,
+      </if>
+      <if test="isUsePayPsw != null" >
+        IS_USE_PAY_PSW,
+      </if>
+      <if test="countInvalidPwd != null" >
+        COUNT_INVALID_PWD,
+      </if>
+      <if test="pwdStrength != null" >
+        PWD_STRENGTH,
+      </if>
+      <if test="payBaseKey != null" >
+        PAY_BASE_KEY,
+      </if>
+      <if test="payPswType != null" >
+        PAY_PSW_TYPE,
+      </if>
+      <if test="pswQuest != null" >
+        PSW_QUEST,
+      </if>
+      <if test="pswAns != null" >
+        PSW_ANS,
+      </if>
+      <if test="idType != null" >
+        ID_TYPE,
+      </if>
+      <if test="idNo != null" >
+        ID_NO,
+      </if>
+      <if test="acctState != null" >
+        ACCT_STATE,
+      </if>
+      <if test="realName != null" >
+        REAL_NAME,
+      </if>
+      <if test="emaill != null" >
+        EMAILL,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
+      </if>
+      <if test="realCheck != null" >
+        REAL_CHECK,
+      </if>
+      <if test="creditGrade != null" >
+        CREDIT_GRADE,
+      </if>
+      <if test="regIp != null" >
+        REG_IP,
+      </if>
+      <if test="regTime != null" >
+        REG_TIME,
+      </if>
+      <if test="lastLogTime != null" >
+        LAST_LOG_TIME,
+      </if>
+      <if test="lastLogIp != null" >
+        LAST_LOG_IP,
+      </if>
+      <if test="errLogNum != null" >
+        ERR_LOG_NUM,
+      </if>
+      <if test="errLogTime != null" >
+        ERR_LOG_TIME,
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="payPsw != null" >
+        #{payPsw,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsePayPsw != null" >
+        #{isUsePayPsw,jdbcType=DECIMAL},
+      </if>
+      <if test="countInvalidPwd != null" >
+        #{countInvalidPwd,jdbcType=DECIMAL},
+      </if>
+      <if test="pwdStrength != null" >
+        #{pwdStrength,jdbcType=DECIMAL},
+      </if>
+      <if test="payBaseKey != null" >
+        #{payBaseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="payPswType != null" >
+        #{payPswType,jdbcType=DECIMAL},
+      </if>
+      <if test="pswQuest != null" >
+        #{pswQuest,jdbcType=VARCHAR},
+      </if>
+      <if test="pswAns != null" >
+        #{pswAns,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null" >
+        #{idType,jdbcType=DECIMAL},
+      </if>
+      <if test="idNo != null" >
+        #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="acctState != null" >
+        #{acctState,jdbcType=DECIMAL},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="emaill != null" >
+        #{emaill,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="realCheck != null" >
+        #{realCheck,jdbcType=DECIMAL},
+      </if>
+      <if test="creditGrade != null" >
+        #{creditGrade,jdbcType=DECIMAL},
+      </if>
+      <if test="regIp != null" >
+        #{regIp,jdbcType=VARCHAR},
+      </if>
+      <if test="regTime != null" >
+        #{regTime,jdbcType=DATE},
+      </if>
+      <if test="lastLogTime != null" >
+        #{lastLogTime,jdbcType=DATE},
+      </if>
+      <if test="lastLogIp != null" >
+        #{lastLogIp,jdbcType=VARCHAR},
+      </if>
+      <if test="errLogNum != null" >
+        #{errLogNum,jdbcType=DECIMAL},
+      </if>
+      <if test="errLogTime != null" >
+        #{errLogTime,jdbcType=DATE},
+      </if>
+      <if test="companyName != null" >
+        #{companyName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.payment.generator.domain.AcctUserCriteria" resultType="java.lang.Integer" >
+    select count(*) from KAN_ACCT_USER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update KAN_ACCT_USER
+    <set >
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payPsw != null" >
+        PAY_PSW = #{record.payPsw,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isUsePayPsw != null" >
+        IS_USE_PAY_PSW = #{record.isUsePayPsw,jdbcType=DECIMAL},
+      </if>
+      <if test="record.countInvalidPwd != null" >
+        COUNT_INVALID_PWD = #{record.countInvalidPwd,jdbcType=DECIMAL},
+      </if>
+      <if test="record.pwdStrength != null" >
+        PWD_STRENGTH = #{record.pwdStrength,jdbcType=DECIMAL},
+      </if>
+      <if test="record.payBaseKey != null" >
+        PAY_BASE_KEY = #{record.payBaseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payPswType != null" >
+        PAY_PSW_TYPE = #{record.payPswType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.pswQuest != null" >
+        PSW_QUEST = #{record.pswQuest,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pswAns != null" >
+        PSW_ANS = #{record.pswAns,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idType != null" >
+        ID_TYPE = #{record.idType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.idNo != null" >
+        ID_NO = #{record.idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acctState != null" >
+        ACCT_STATE = #{record.acctState,jdbcType=DECIMAL},
+      </if>
+      <if test="record.realName != null" >
+        REAL_NAME = #{record.realName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.emaill != null" >
+        EMAILL = #{record.emaill,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.realCheck != null" >
+        REAL_CHECK = #{record.realCheck,jdbcType=DECIMAL},
+      </if>
+      <if test="record.creditGrade != null" >
+        CREDIT_GRADE = #{record.creditGrade,jdbcType=DECIMAL},
+      </if>
+      <if test="record.regIp != null" >
+        REG_IP = #{record.regIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regTime != null" >
+        REG_TIME = #{record.regTime,jdbcType=DATE},
+      </if>
+      <if test="record.lastLogTime != null" >
+        LAST_LOG_TIME = #{record.lastLogTime,jdbcType=DATE},
+      </if>
+      <if test="record.lastLogIp != null" >
+        LAST_LOG_IP = #{record.lastLogIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.errLogNum != null" >
+        ERR_LOG_NUM = #{record.errLogNum,jdbcType=DECIMAL},
+      </if>
+      <if test="record.errLogTime != null" >
+        ERR_LOG_TIME = #{record.errLogTime,jdbcType=DATE},
+      </if>
+      <if test="record.companyName != null" >
+        COMPANY_NAME = #{record.companyName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update KAN_ACCT_USER
+    set USER_ID = #{record.userId,jdbcType=VARCHAR},
+      PAY_PSW = #{record.payPsw,jdbcType=VARCHAR},
+      IS_USE_PAY_PSW = #{record.isUsePayPsw,jdbcType=DECIMAL},
+      COUNT_INVALID_PWD = #{record.countInvalidPwd,jdbcType=DECIMAL},
+      PWD_STRENGTH = #{record.pwdStrength,jdbcType=DECIMAL},
+      PAY_BASE_KEY = #{record.payBaseKey,jdbcType=VARCHAR},
+      PAY_PSW_TYPE = #{record.payPswType,jdbcType=DECIMAL},
+      PSW_QUEST = #{record.pswQuest,jdbcType=VARCHAR},
+      PSW_ANS = #{record.pswAns,jdbcType=VARCHAR},
+      ID_TYPE = #{record.idType,jdbcType=DECIMAL},
+      ID_NO = #{record.idNo,jdbcType=VARCHAR},
+      ACCT_STATE = #{record.acctState,jdbcType=DECIMAL},
+      REAL_NAME = #{record.realName,jdbcType=VARCHAR},
+      EMAILL = #{record.emaill,jdbcType=VARCHAR},
+      MOBILE = #{record.mobile,jdbcType=VARCHAR},
+      REAL_CHECK = #{record.realCheck,jdbcType=DECIMAL},
+      CREDIT_GRADE = #{record.creditGrade,jdbcType=DECIMAL},
+      REG_IP = #{record.regIp,jdbcType=VARCHAR},
+      REG_TIME = #{record.regTime,jdbcType=DATE},
+      LAST_LOG_TIME = #{record.lastLogTime,jdbcType=DATE},
+      LAST_LOG_IP = #{record.lastLogIp,jdbcType=VARCHAR},
+      ERR_LOG_NUM = #{record.errLogNum,jdbcType=DECIMAL},
+      ERR_LOG_TIME = #{record.errLogTime,jdbcType=DATE},
+      COMPANY_NAME = #{record.companyName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.payment.generator.domain.AcctUser" >
+    update KAN_ACCT_USER
+    <set >
+      <if test="payPsw != null" >
+        PAY_PSW = #{payPsw,jdbcType=VARCHAR},
+      </if>
+      <if test="isUsePayPsw != null" >
+        IS_USE_PAY_PSW = #{isUsePayPsw,jdbcType=DECIMAL},
+      </if>
+      <if test="countInvalidPwd != null" >
+        COUNT_INVALID_PWD = #{countInvalidPwd,jdbcType=DECIMAL},
+      </if>
+      <if test="pwdStrength != null" >
+        PWD_STRENGTH = #{pwdStrength,jdbcType=DECIMAL},
+      </if>
+      <if test="payBaseKey != null" >
+        PAY_BASE_KEY = #{payBaseKey,jdbcType=VARCHAR},
+      </if>
+      <if test="payPswType != null" >
+        PAY_PSW_TYPE = #{payPswType,jdbcType=DECIMAL},
+      </if>
+      <if test="pswQuest != null" >
+        PSW_QUEST = #{pswQuest,jdbcType=VARCHAR},
+      </if>
+      <if test="pswAns != null" >
+        PSW_ANS = #{pswAns,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null" >
+        ID_TYPE = #{idType,jdbcType=DECIMAL},
+      </if>
+      <if test="idNo != null" >
+        ID_NO = #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="acctState != null" >
+        ACCT_STATE = #{acctState,jdbcType=DECIMAL},
+      </if>
+      <if test="realName != null" >
+        REAL_NAME = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="emaill != null" >
+        EMAILL = #{emaill,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        MOBILE = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="realCheck != null" >
+        REAL_CHECK = #{realCheck,jdbcType=DECIMAL},
+      </if>
+      <if test="creditGrade != null" >
+        CREDIT_GRADE = #{creditGrade,jdbcType=DECIMAL},
+      </if>
+      <if test="regIp != null" >
+        REG_IP = #{regIp,jdbcType=VARCHAR},
+      </if>
+      <if test="regTime != null" >
+        REG_TIME = #{regTime,jdbcType=DATE},
+      </if>
+      <if test="lastLogTime != null" >
+        LAST_LOG_TIME = #{lastLogTime,jdbcType=DATE},
+      </if>
+      <if test="lastLogIp != null" >
+        LAST_LOG_IP = #{lastLogIp,jdbcType=VARCHAR},
+      </if>
+      <if test="errLogNum != null" >
+        ERR_LOG_NUM = #{errLogNum,jdbcType=DECIMAL},
+      </if>
+      <if test="errLogTime != null" >
+        ERR_LOG_TIME = #{errLogTime,jdbcType=DATE},
+      </if>
+      <if test="companyName != null" >
+        COMPANY_NAME = #{companyName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.payment.generator.domain.AcctUser" >
+    update KAN_ACCT_USER
+    set PAY_PSW = #{payPsw,jdbcType=VARCHAR},
+      IS_USE_PAY_PSW = #{isUsePayPsw,jdbcType=DECIMAL},
+      COUNT_INVALID_PWD = #{countInvalidPwd,jdbcType=DECIMAL},
+      PWD_STRENGTH = #{pwdStrength,jdbcType=DECIMAL},
+      PAY_BASE_KEY = #{payBaseKey,jdbcType=VARCHAR},
+      PAY_PSW_TYPE = #{payPswType,jdbcType=DECIMAL},
+      PSW_QUEST = #{pswQuest,jdbcType=VARCHAR},
+      PSW_ANS = #{pswAns,jdbcType=VARCHAR},
+      ID_TYPE = #{idType,jdbcType=DECIMAL},
+      ID_NO = #{idNo,jdbcType=VARCHAR},
+      ACCT_STATE = #{acctState,jdbcType=DECIMAL},
+      REAL_NAME = #{realName,jdbcType=VARCHAR},
+      EMAILL = #{emaill,jdbcType=VARCHAR},
+      MOBILE = #{mobile,jdbcType=VARCHAR},
+      REAL_CHECK = #{realCheck,jdbcType=DECIMAL},
+      CREDIT_GRADE = #{creditGrade,jdbcType=DECIMAL},
+      REG_IP = #{regIp,jdbcType=VARCHAR},
+      REG_TIME = #{regTime,jdbcType=DATE},
+      LAST_LOG_TIME = #{lastLogTime,jdbcType=DATE},
+      LAST_LOG_IP = #{lastLogIp,jdbcType=VARCHAR},
+      ERR_LOG_NUM = #{errLogNum,jdbcType=DECIMAL},
+      ERR_LOG_TIME = #{errLogTime,jdbcType=DATE},
+      COMPANY_NAME = #{companyName,jdbcType=VARCHAR}
+    where USER_ID = #{userId,jdbcType=VARCHAR}
+  </update>
+  <select resultMap="BaseResultMap" parameterType="com.payment.generator.domain.AcctUserCriteria" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from KAN_ACCT_USER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <cache />
+</mapper>

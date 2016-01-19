@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.payment.generator.dao.AcctFundsRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.payment.generator.domain.AcctFundsRecord" >
+    <result column="FUNDS_ID" property="fundsId" jdbcType="VARCHAR" />
+    <result column="TRADE_TYPE_ID" property="tradeTypeId" jdbcType="DECIMAL" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="CREATED_TIME" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="PAYOUT_AMOUNT" property="payoutAmount" jdbcType="DECIMAL" />
+    <result column="INCOME_AMOUNT" property="incomeAmount" jdbcType="DECIMAL" />
+    <result column="BALANCE" property="balance" jdbcType="DECIMAL" />
+    <result column="OUT_ORDER_NO" property="outOrderNo" jdbcType="VARCHAR" />
+    <result column="ORDER_NO" property="orderNo" jdbcType="VARCHAR" />
+    <result column="FUNDS_NAME" property="fundsName" jdbcType="VARCHAR" />
+    <result column="FUNDS_DESC" property="fundsDesc" jdbcType="VARCHAR" />
+    <result column="IN_OUT_TYPE" property="inOutType" jdbcType="DECIMAL" />
+    <result column="BUSI_TYPE_ID" property="busiTypeId" jdbcType="DECIMAL" />
+    <result column="BUSI_TYPE_NAME" property="busiTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    FUNDS_ID, TRADE_TYPE_ID, USER_ID, CREATED_TIME, PAYOUT_AMOUNT, INCOME_AMOUNT, BALANCE, 
+    OUT_ORDER_NO, ORDER_NO, FUNDS_NAME, FUNDS_DESC, IN_OUT_TYPE, BUSI_TYPE_ID, BUSI_TYPE_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payment.generator.domain.AcctFundsRecordCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from KAN_ACCT_FUNDS_RECORD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.payment.generator.domain.AcctFundsRecordCriteria" >
+    delete from KAN_ACCT_FUNDS_RECORD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.payment.generator.domain.AcctFundsRecord" >
+    insert into KAN_ACCT_FUNDS_RECORD (FUNDS_ID, TRADE_TYPE_ID, USER_ID, 
+      CREATED_TIME, PAYOUT_AMOUNT, INCOME_AMOUNT, 
+      BALANCE, OUT_ORDER_NO, ORDER_NO, 
+      FUNDS_NAME, FUNDS_DESC, IN_OUT_TYPE, 
+      BUSI_TYPE_ID, BUSI_TYPE_NAME)
+    values (#{fundsId,jdbcType=VARCHAR}, #{tradeTypeId,jdbcType=DECIMAL}, #{userId,jdbcType=VARCHAR}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{payoutAmount,jdbcType=DECIMAL}, #{incomeAmount,jdbcType=DECIMAL}, 
+      #{balance,jdbcType=DECIMAL}, #{outOrderNo,jdbcType=VARCHAR}, #{orderNo,jdbcType=VARCHAR}, 
+      #{fundsName,jdbcType=VARCHAR}, #{fundsDesc,jdbcType=VARCHAR}, #{inOutType,jdbcType=DECIMAL}, 
+      #{busiTypeId,jdbcType=DECIMAL}, #{busiTypeName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.payment.generator.domain.AcctFundsRecord" >
+    insert into KAN_ACCT_FUNDS_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fundsId != null" >
+        FUNDS_ID,
+      </if>
+      <if test="tradeTypeId != null" >
+        TRADE_TYPE_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="createdTime != null" >
+        CREATED_TIME,
+      </if>
+      <if test="payoutAmount != null" >
+        PAYOUT_AMOUNT,
+      </if>
+      <if test="incomeAmount != null" >
+        INCOME_AMOUNT,
+      </if>
+      <if test="balance != null" >
+        BALANCE,
+      </if>
+      <if test="outOrderNo != null" >
+        OUT_ORDER_NO,
+      </if>
+      <if test="orderNo != null" >
+        ORDER_NO,
+      </if>
+      <if test="fundsName != null" >
+        FUNDS_NAME,
+      </if>
+      <if test="fundsDesc != null" >
+        FUNDS_DESC,
+      </if>
+      <if test="inOutType != null" >
+        IN_OUT_TYPE,
+      </if>
+      <if test="busiTypeId != null" >
+        BUSI_TYPE_ID,
+      </if>
+      <if test="busiTypeName != null" >
+        BUSI_TYPE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fundsId != null" >
+        #{fundsId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeTypeId != null" >
+        #{tradeTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="createdTime != null" >
+        #{createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="payoutAmount != null" >
+        #{payoutAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="incomeAmount != null" >
+        #{incomeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="balance != null" >
+        #{balance,jdbcType=DECIMAL},
+      </if>
+      <if test="outOrderNo != null" >
+        #{outOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null" >
+        #{orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fundsName != null" >
+        #{fundsName,jdbcType=VARCHAR},
+      </if>
+      <if test="fundsDesc != null" >
+        #{fundsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="inOutType != null" >
+        #{inOutType,jdbcType=DECIMAL},
+      </if>
+      <if test="busiTypeId != null" >
+        #{busiTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="busiTypeName != null" >
+        #{busiTypeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.payment.generator.domain.AcctFundsRecordCriteria" resultType="java.lang.Integer" >
+    select count(*) from KAN_ACCT_FUNDS_RECORD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update KAN_ACCT_FUNDS_RECORD
+    <set >
+      <if test="record.fundsId != null" >
+        FUNDS_ID = #{record.fundsId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tradeTypeId != null" >
+        TRADE_TYPE_ID = #{record.tradeTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.userId != null" >
+        USER_ID = #{record.userId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdTime != null" >
+        CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.payoutAmount != null" >
+        PAYOUT_AMOUNT = #{record.payoutAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.incomeAmount != null" >
+        INCOME_AMOUNT = #{record.incomeAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.balance != null" >
+        BALANCE = #{record.balance,jdbcType=DECIMAL},
+      </if>
+      <if test="record.outOrderNo != null" >
+        OUT_ORDER_NO = #{record.outOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.orderNo != null" >
+        ORDER_NO = #{record.orderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fundsName != null" >
+        FUNDS_NAME = #{record.fundsName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fundsDesc != null" >
+        FUNDS_DESC = #{record.fundsDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.inOutType != null" >
+        IN_OUT_TYPE = #{record.inOutType,jdbcType=DECIMAL},
+      </if>
+      <if test="record.busiTypeId != null" >
+        BUSI_TYPE_ID = #{record.busiTypeId,jdbcType=DECIMAL},
+      </if>
+      <if test="record.busiTypeName != null" >
+        BUSI_TYPE_NAME = #{record.busiTypeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update KAN_ACCT_FUNDS_RECORD
+    set FUNDS_ID = #{record.fundsId,jdbcType=VARCHAR},
+      TRADE_TYPE_ID = #{record.tradeTypeId,jdbcType=DECIMAL},
+      USER_ID = #{record.userId,jdbcType=VARCHAR},
+      CREATED_TIME = #{record.createdTime,jdbcType=TIMESTAMP},
+      PAYOUT_AMOUNT = #{record.payoutAmount,jdbcType=DECIMAL},
+      INCOME_AMOUNT = #{record.incomeAmount,jdbcType=DECIMAL},
+      BALANCE = #{record.balance,jdbcType=DECIMAL},
+      OUT_ORDER_NO = #{record.outOrderNo,jdbcType=VARCHAR},
+      ORDER_NO = #{record.orderNo,jdbcType=VARCHAR},
+      FUNDS_NAME = #{record.fundsName,jdbcType=VARCHAR},
+      FUNDS_DESC = #{record.fundsDesc,jdbcType=VARCHAR},
+      IN_OUT_TYPE = #{record.inOutType,jdbcType=DECIMAL},
+      BUSI_TYPE_ID = #{record.busiTypeId,jdbcType=DECIMAL},
+      BUSI_TYPE_NAME = #{record.busiTypeName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <select resultMap="BaseResultMap" parameterType="com.payment.generator.domain.AcctFundsRecordCriteria" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from KAN_ACCT_FUNDS_RECORD
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <cache />
+</mapper>

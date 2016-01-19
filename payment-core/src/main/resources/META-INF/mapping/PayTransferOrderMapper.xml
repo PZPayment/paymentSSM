@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.payment.generator.dao.PayTransferOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.payment.generator.domain.PayTransferOrder" >
+    <id column="TRADE_NO" property="tradeNo" jdbcType="VARCHAR" />
+    <result column="FROM_USER_ID" property="fromUserId" jdbcType="VARCHAR" />
+    <result column="TO_USER_ID" property="toUserId" jdbcType="VARCHAR" />
+    <result column="TRANS_AMOUNT" property="transAmount" jdbcType="DECIMAL" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="DATE" />
+    <result column="OPERATOR" property="operator" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="OUT_ORDER_NO" property="outOrderNo" jdbcType="VARCHAR" />
+    <result column="BUSI_TYPE_NAME" property="busiTypeName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    TRADE_NO, FROM_USER_ID, TO_USER_ID, TRANS_AMOUNT, CREATE_TIME, OPERATOR, REMARK, 
+    OUT_ORDER_NO, BUSI_TYPE_NAME
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payment.generator.domain.PayTransferOrderCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from KAN_PAY_TRANSFER_ORDER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from KAN_PAY_TRANSFER_ORDER
+    where TRADE_NO = #{tradeNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from KAN_PAY_TRANSFER_ORDER
+    where TRADE_NO = #{tradeNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.payment.generator.domain.PayTransferOrderCriteria" >
+    delete from KAN_PAY_TRANSFER_ORDER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.payment.generator.domain.PayTransferOrder" >
+    insert into KAN_PAY_TRANSFER_ORDER (TRADE_NO, FROM_USER_ID, TO_USER_ID, 
+      TRANS_AMOUNT, CREATE_TIME, OPERATOR, 
+      REMARK, OUT_ORDER_NO, BUSI_TYPE_NAME
+      )
+    values (#{tradeNo,jdbcType=VARCHAR}, #{fromUserId,jdbcType=VARCHAR}, #{toUserId,jdbcType=VARCHAR}, 
+      #{transAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=DATE}, #{operator,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR}, #{outOrderNo,jdbcType=VARCHAR}, #{busiTypeName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.payment.generator.domain.PayTransferOrder" >
+    insert into KAN_PAY_TRANSFER_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tradeNo != null" >
+        TRADE_NO,
+      </if>
+      <if test="fromUserId != null" >
+        FROM_USER_ID,
+      </if>
+      <if test="toUserId != null" >
+        TO_USER_ID,
+      </if>
+      <if test="transAmount != null" >
+        TRANS_AMOUNT,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="operator != null" >
+        OPERATOR,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="outOrderNo != null" >
+        OUT_ORDER_NO,
+      </if>
+      <if test="busiTypeName != null" >
+        BUSI_TYPE_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tradeNo != null" >
+        #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="fromUserId != null" >
+        #{fromUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="toUserId != null" >
+        #{toUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="transAmount != null" >
+        #{transAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="operator != null" >
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="outOrderNo != null" >
+        #{outOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="busiTypeName != null" >
+        #{busiTypeName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.payment.generator.domain.PayTransferOrderCriteria" resultType="java.lang.Integer" >
+    select count(*) from KAN_PAY_TRANSFER_ORDER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update KAN_PAY_TRANSFER_ORDER
+    <set >
+      <if test="record.tradeNo != null" >
+        TRADE_NO = #{record.tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fromUserId != null" >
+        FROM_USER_ID = #{record.fromUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toUserId != null" >
+        TO_USER_ID = #{record.toUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transAmount != null" >
+        TRANS_AMOUNT = #{record.transAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      </if>
+      <if test="record.operator != null" >
+        OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outOrderNo != null" >
+        OUT_ORDER_NO = #{record.outOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.busiTypeName != null" >
+        BUSI_TYPE_NAME = #{record.busiTypeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update KAN_PAY_TRANSFER_ORDER
+    set TRADE_NO = #{record.tradeNo,jdbcType=VARCHAR},
+      FROM_USER_ID = #{record.fromUserId,jdbcType=VARCHAR},
+      TO_USER_ID = #{record.toUserId,jdbcType=VARCHAR},
+      TRANS_AMOUNT = #{record.transAmount,jdbcType=DECIMAL},
+      CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      OPERATOR = #{record.operator,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR},
+      OUT_ORDER_NO = #{record.outOrderNo,jdbcType=VARCHAR},
+      BUSI_TYPE_NAME = #{record.busiTypeName,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.payment.generator.domain.PayTransferOrder" >
+    update KAN_PAY_TRANSFER_ORDER
+    <set >
+      <if test="fromUserId != null" >
+        FROM_USER_ID = #{fromUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="toUserId != null" >
+        TO_USER_ID = #{toUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="transAmount != null" >
+        TRANS_AMOUNT = #{transAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="operator != null" >
+        OPERATOR = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="outOrderNo != null" >
+        OUT_ORDER_NO = #{outOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="busiTypeName != null" >
+        BUSI_TYPE_NAME = #{busiTypeName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where TRADE_NO = #{tradeNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.payment.generator.domain.PayTransferOrder" >
+    update KAN_PAY_TRANSFER_ORDER
+    set FROM_USER_ID = #{fromUserId,jdbcType=VARCHAR},
+      TO_USER_ID = #{toUserId,jdbcType=VARCHAR},
+      TRANS_AMOUNT = #{transAmount,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=DATE},
+      OPERATOR = #{operator,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR},
+      OUT_ORDER_NO = #{outOrderNo,jdbcType=VARCHAR},
+      BUSI_TYPE_NAME = #{busiTypeName,jdbcType=VARCHAR}
+    where TRADE_NO = #{tradeNo,jdbcType=VARCHAR}
+  </update>
+  <select resultMap="BaseResultMap" parameterType="com.payment.generator.domain.PayTransferOrderCriteria" id="selectByExampleWithRowbounds" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from KAN_PAY_TRANSFER_ORDER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <cache />
+</mapper>

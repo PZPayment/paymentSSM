@@ -68,20 +68,20 @@
 		</javaClientGenerator>
 
 		<!-- 配置表信息 -->
-		<!--支付单-->
-		<table tableName="KAN_PAY_TRADE_ORDER" domainObjectName="PayTradeOrder" />
-		<!--&lt;!&ndash;充值单&ndash;&gt;-->
-		<!--<table tableName="KAN_PAY_CHARGE_ORDER" domainObjectName="PayChargeOrder" />-->
-		<!--&lt;!&ndash;网关单&ndash;&gt;-->
-		<!--<table tableName="KAN_PAY_MERCHANT_ORDER" domainObjectName="PayMerchantOrder" />-->
-		<!--&lt;!&ndash;转账&ndash;&gt;-->
-		<!--<table tableName="KAN_PAY_TRANSFER_ORDER" domainObjectName="PayTransferOrder" />-->
-		<!--&lt;!&ndash;账本&ndash;&gt;-->
-		<!--<table tableName="KAN_ACCT_BALANCE" domainObjectName="AcctBalance" />-->
-		<!--&lt;!&ndash;用户&ndash;&gt;-->
-		<!--<table tableName="KAN_ACCT_USER" domainObjectName="AcctUser" />-->
-		<!--&lt;!&ndash;流水&ndash;&gt;-->
-		<!--<table tableName="KAN_ACCT_FUNDS_RECORD" domainObjectName="AcctFundsRecord" />-->
+		<!--&lt;!&ndash;支付单&ndash;&gt;-->
+		<!--<table tableName="KAN_PAY_TRADE_ORDER" domainObjectName="PayTradeOrder" />-->
+		<!--充值单-->
+		<table tableName="KAN_PAY_CHARGE_ORDER" domainObjectName="PayChargeOrder" />
+		<!--网关单-->
+		<table tableName="KAN_PAY_MERCHANT_ORDER" domainObjectName="PayMerchantOrder" />
+		<!--转账-->
+		<table tableName="KAN_PAY_TRANSFER_ORDER" domainObjectName="PayTransferOrder" />
+		<!--账本-->
+		<table tableName="KAN_ACCT_BALANCE" domainObjectName="AcctBalance" />
+		<!--用户-->
+		<table tableName="KAN_ACCT_USER" domainObjectName="AcctUser" />
+		<!--流水-->
+		<table tableName="KAN_ACCT_FUNDS_RECORD" domainObjectName="AcctFundsRecord" />
 
 
 

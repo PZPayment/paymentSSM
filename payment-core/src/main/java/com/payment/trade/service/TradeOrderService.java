@@ -3,7 +3,6 @@ package com.payment.trade.service;
 import com.payment.comm.base.service.BaseService;
 import com.payment.generator.domain.PayTradeOrder;
 import com.payment.generator.domain.PayTradeOrderCriteria;
-import com.sun.org.apache.xpath.internal.operations.String;
 
 /**
  * 版      权:  江苏千米网络科技有限公司  <br>
