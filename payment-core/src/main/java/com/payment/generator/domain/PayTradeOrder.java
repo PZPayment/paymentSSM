@@ -1,9 +1,11 @@
 package com.payment.generator.domain;
 
+import com.payment.comm.base.domain.AbstractEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class PayTradeOrder implements Serializable {
+public class PayTradeOrder extends AbstractEntity implements Serializable {
     private String tradeNo;
 
     private String outTradeNo;
@@ -169,5 +171,9 @@ public class PayTradeOrder implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public String getId() {
+        return tradeNo;
     }
 }

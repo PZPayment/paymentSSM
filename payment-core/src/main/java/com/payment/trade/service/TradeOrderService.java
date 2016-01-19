@@ -1,6 +1,9 @@
 package com.payment.trade.service;
 
+import com.payment.comm.base.service.BaseService;
 import com.payment.generator.domain.PayTradeOrder;
+import com.payment.generator.domain.PayTradeOrderCriteria;
+import com.sun.org.apache.xpath.internal.operations.String;
 
 /**
  * 版      权:  江苏千米网络科技有限公司  <br>
@@ -9,10 +12,7 @@ import com.payment.generator.domain.PayTradeOrder;
  * 创 建 人 : 方超(OF716)  <br>
  * 修改时间:  16/1/19      <br>
  */
-public interface TradeOrderService  {
+public interface TradeOrderService extends BaseService<PayTradeOrder,PayTradeOrderCriteria> {
 
-    PayTradeOrder selectByPrimaryKey(String tradeNo);
-
-    PayTradeOrder create(PayTradeOrder tradeOrder);
 
 }

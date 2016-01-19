@@ -1,7 +1,10 @@
 package com.payment.trade.service.impl;
 
+import com.payment.comm.base.dao.BaseDao;
+import com.payment.comm.base.service.BaseServiceImpl;
 import com.payment.generator.dao.PayTradeOrderMapper;
 import com.payment.generator.domain.PayTradeOrder;
+import com.payment.generator.domain.PayTradeOrderCriteria;
 import com.payment.trade.service.TradeOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,18 +18,14 @@ import org.springframework.stereotype.Service;
  * 修改时间:  15/12/29      <br>
  */
 @Service
-public class TradeOrderServiceImpl implements TradeOrderService {
+public class TradeOrderServiceImpl extends BaseServiceImpl<PayTradeOrder,PayTradeOrderCriteria> implements TradeOrderService {
 
     @Autowired
     PayTradeOrderMapper payTradeOrderMapper;
 
 
-    public PayTradeOrder selectByPrimaryKey(String tradeNo) {
-        return payTradeOrderMapper.selectByPrimaryKey(tradeNo);
-    }
-
-    public PayTradeOrder create(PayTradeOrder tradeOrder) {
-        payTradeOrderMapper.insert(tradeOrder);
-        return tradeOrder;
+    @Override
+    protected BaseDao<PayTradeOrder, PayTradeOrderCriteria, String> getDao() {
+        return payTradeOrderMapper;
     }
 }

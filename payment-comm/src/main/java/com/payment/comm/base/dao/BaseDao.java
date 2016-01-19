@@ -28,7 +28,7 @@ public interface BaseDao<T extends Serializable ,E, ID extends Serializable> {
 	 */
 	T selectByPrimaryKey(ID id);
 
-	T selectByOutNo(String outOrderNo);
+	T selectByOutNo(String outTradeNo);
 
 	int updateByExampleSelective(@Param("record") T record, @Param("example") E example);
 

@@ -99,6 +99,14 @@
     from KAN_PAY_TRADE_ORDER
     where TRADE_NO = #{tradeNo,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectByOutNo" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from KAN_PAY_TRADE_ORDER
+    where OUT_TRADE_NO = #{outTradeNo,jdbcType=VARCHAR}
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from KAN_PAY_TRADE_ORDER
     where TRADE_NO = #{tradeNo,jdbcType=VARCHAR}
