@@ -1,9 +1,11 @@
 package com.payment.generator.domain;
 
+import com.payment.comm.base.domain.AbstractEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class AcctBalance implements Serializable {
+public class AcctBalance extends AbstractEntity implements Serializable {
     private Long balanceId;
 
     private String userId;
@@ -70,5 +72,9 @@ public class AcctBalance implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public String getId() {
+        return getBalanceId().toString();
     }
 }

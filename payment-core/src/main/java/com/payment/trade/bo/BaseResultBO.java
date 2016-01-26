@@ -14,6 +14,16 @@ public class BaseResultBO implements Serializable {
 
     private String resultMsg;
 
+    public BaseResultBO() {
+        this.resultCode=0;
+        this.resultMsg="成功";
+    }
+
+    public BaseResultBO(Integer resultCode, String resultMsg) {
+        this.resultCode = resultCode;
+        this.resultMsg = resultMsg;
+    }
+
     public Integer getResultCode() {
         return resultCode;
     }
