@@ -1,6 +1,8 @@
 package com.payment.trade;
 
 import com.payment.comm.constants.SystemConstants;
+import com.payment.comm.handler.RedisHandler;
+import com.payment.comm.utils.JsonUtil;
 import com.payment.generator.domain.PayTradeOrder;
 import com.payment.trade.bo.*;
 import com.payment.trade.service.TradeOrderService;
@@ -22,6 +24,7 @@ public class PaymentProvider {
     @Autowired
     TradeOrderService tradeOrderService;
 
+
     /**
      * 订单支付
      *
@@ -29,11 +32,13 @@ public class PaymentProvider {
      * @return
      * @throws Exception
      */
+
     public PaymentResultBO payment(PaymentBO paymentBO) throws Exception {
         PaymentResultBO paymentResultBO = new PaymentResultBO();
 
         PayTradeOrder tradeOrder = tradeOrderService.findOne(paymentBO.getOrderNo());
         if (tradeOrder == null) {
+
             //封装支付单信息
             tradeOrder = new PayTradeOrder();
             tradeOrder.setPayUserId("13123");
@@ -41,6 +46,9 @@ public class PaymentProvider {
             tradeOrder.setOutTradeNo("21312312");
             tradeOrder.setPayAmount(1321L);
             tradeOrder.setCreatedTime(new Date(System.currentTimeMillis()));
+
+            RedisHandler.set(tradeOrder.getId(),JsonUtil.convertString(tradeOrder));
+            PayTradeOrder  trade = JsonUtil.convertObject( RedisHandler.get(tradeOrder.getId()),PayTradeOrder.class);
             //新增支付单
             tradeOrder = tradeOrderService.create(tradeOrder);
         }

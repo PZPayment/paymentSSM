@@ -6,7 +6,9 @@ import com.payment.generator.domain.PayTradeOrder;
 import com.payment.generator.domain.PayTradeOrderCriteria;
 import org.springframework.stereotype.Service;
 
+
 @Service
 public interface PayTradeOrderMapper extends BaseDao<PayTradeOrder,PayTradeOrderCriteria,String>{
+
 
 }

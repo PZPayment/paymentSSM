@@ -230,11 +230,11 @@
                 <version>3.4</version>
             </dependency>
             <dependency>
-                <groupId>oracle</groupId>
-                <artifactId>ojdbc14</artifactId>
-                <version>10.2.0.4</version>
-                <scope>runtime</scope>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.38</version>
             </dependency>
+
 
             <dependency>
                 <groupId>org.perf4j</groupId>
@@ -257,6 +257,25 @@
                 <artifactId>lombok</artifactId>
                 <version>1.16.6</version>
             </dependency>
+
+            <!--reids-->
+            <dependency>
+                <groupId>org.springframework.data</groupId>
+                <artifactId>spring-data-redis</artifactId>
+                <version>1.6.0.RELEASE</version>
+            </dependency>
+            <dependency>
+                <groupId>redis.clients</groupId>
+                <artifactId>jedis</artifactId>
+                <version>2.7.3</version>
+            </dependency>
+            <!-- json依赖-->
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>20141113</version>
+            </dependency>
+
 
         </dependencies>
     </dependencyManagement>

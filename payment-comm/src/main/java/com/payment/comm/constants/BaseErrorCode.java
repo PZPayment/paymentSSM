@@ -9,7 +9,7 @@ package com.payment.comm.constants;
  */
 public class BaseErrorCode {
 
-    // 参数为空
+    // 系统错误
     public static final String SYSTEM_ERROR = "900000";
     // 参数为空
     public static final String ARGS_IS_NULL = "900001";
