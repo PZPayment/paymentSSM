@@ -1,7 +1,7 @@
 package com.payment.comm.handler;
 
 import com.payment.comm.base.exception.PaymentException;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.payment.comm.utils.JsonUtil;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
@@ -19,8 +19,9 @@ public class RedisHandler {
     private static RedisTemplate<String, String> redisTemplate;
 
 
-    public static void set(String key,String obj) throws PaymentException {
-        redisTemplate.opsForValue().set(key, obj);
+    public static void set(String key,Object obj) throws PaymentException {
+
+        redisTemplate.opsForValue().set(key,  JsonUtil.convertString(obj));
     }
 
     public static String get(String key){

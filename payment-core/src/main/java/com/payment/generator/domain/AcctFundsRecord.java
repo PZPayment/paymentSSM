@@ -1,9 +1,11 @@
 package com.payment.generator.domain;
 
+import com.payment.comm.base.domain.AbstractEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class AcctFundsRecord implements Serializable {
+public class AcctFundsRecord extends AbstractEntity implements Serializable {
     private String fundsId;
 
     private Integer tradeTypeId;
@@ -169,5 +171,9 @@ public class AcctFundsRecord implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public String getId() {
+        return fundsId;
     }
 }

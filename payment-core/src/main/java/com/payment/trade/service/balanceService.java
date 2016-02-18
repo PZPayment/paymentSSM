@@ -3,6 +3,7 @@ package com.payment.trade.service;
 import com.payment.comm.base.service.BaseService;
 import com.payment.generator.domain.AcctBalance;
 import com.payment.generator.domain.AcctBalanceCriteria;
+import org.springframework.stereotype.Service;
 
 /**
  * 版      权:  江苏千米网络科技有限公司  <br>
@@ -11,7 +12,8 @@ import com.payment.generator.domain.AcctBalanceCriteria;
  * 创 建 人 : 方超(OF716)  <br>
  * 修改时间:  16/1/20      <br>
  */
+
 public interface BalanceService extends BaseService<AcctBalance,AcctBalanceCriteria> {
 
-   AcctBalance getBalanceByIdType(String AcctId, Short balanceTypeId);
+   AcctBalance getBalanceByUserId(String userId);
 }

@@ -1,9 +1,11 @@
 package com.payment.generator.domain;
 
+import com.payment.comm.base.domain.AbstractEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class AcctUser implements Serializable {
+public class AcctUser extends AbstractEntity implements Serializable {
     private String userId;
 
     private String payPsw;
@@ -279,5 +281,9 @@ public class AcctUser implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public String getId() {
+        return this.userId;
     }
 }

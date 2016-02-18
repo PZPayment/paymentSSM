@@ -10,4 +10,14 @@ package com.payment.comm.constants;
 public class SystemConstants {
 
    public final static Integer RESULT_CODE_SUCCESS = 0;
+
+   /**
+    * 资金流向  收入
+    */
+   public static final Short CAPITAL_FLOWS_IN = 1;
+
+   /**
+    * 资金流向  支出
+    */
+   public static final Short CAPITAL_FLOWS_OUT = 2;
 }

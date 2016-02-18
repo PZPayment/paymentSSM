@@ -1,10 +1,12 @@
 package com.payment.generator.domain;
 
+import com.payment.comm.base.domain.AbstractCriteria;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class AcctFundsRecordCriteria {
+public class AcctFundsRecordCriteria extends AbstractCriteria {
     protected String orderByClause;
 
     protected boolean distinct;

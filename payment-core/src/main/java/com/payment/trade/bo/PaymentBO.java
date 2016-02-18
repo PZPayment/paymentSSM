@@ -21,6 +21,12 @@ public class PaymentBO {
      * 必传
      */
     private String buyerUserId;
+
+    /**
+     * 收款方用户标识
+     * 必传
+     */
+    private String sellerUserId;
     /**
      * 支付金额
      * 必传

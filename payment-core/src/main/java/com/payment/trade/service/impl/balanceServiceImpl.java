@@ -28,7 +28,7 @@ public class BalanceServiceImpl extends BaseServiceImpl<AcctBalance, AcctBalance
         return acctBalanceMapper;
     }
 
-    public AcctBalance getBalanceByIdType(String AcctId, Short balanceTypeId) {
-        return null;
+    public AcctBalance getBalanceByUserId(String userid) {
+        return acctBalanceMapper.selectByOutNo(userid);
     }
 }

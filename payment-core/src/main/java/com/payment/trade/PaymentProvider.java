@@ -1,13 +1,19 @@
 package com.payment.trade;
 
+import com.payment.comm.base.exception.PaymentException;
+import com.payment.comm.constants.EnumFundsType;
+import com.payment.comm.constants.EnumTransferType;
 import com.payment.comm.constants.SystemConstants;
-import com.payment.comm.handler.RedisHandler;
-import com.payment.comm.utils.JsonUtil;
+import com.payment.comm.utils.MoneyUtils;
+import com.payment.generator.domain.AcctUser;
 import com.payment.generator.domain.PayTradeOrder;
 import com.payment.trade.bo.*;
 import com.payment.trade.service.TradeOrderService;
+import com.payment.trade.service.TransferService;
+import com.payment.trade.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
@@ -24,6 +30,12 @@ public class PaymentProvider {
     @Autowired
     TradeOrderService tradeOrderService;
 
+    @Autowired
+    TransferService transferService;
+
+    @Autowired
+    UserService userService;
+
 
     /**
      * 订单支付
@@ -33,10 +45,24 @@ public class PaymentProvider {
      * @throws Exception
      */
 
+    @Transactional(rollbackFor = Exception.class)
     public PaymentResultBO payment(PaymentBO paymentBO) throws Exception {
         PaymentResultBO paymentResultBO = new PaymentResultBO();
 
-        PayTradeOrder tradeOrder = tradeOrderService.findOne(paymentBO.getOrderNo());
+        PayTradeOrder tradeOrder =  tradeOrderService.findOne(paymentBO.getOrderNo());
+
+        //2个人
+        AcctUser payUser = userService.findOne(paymentBO.getBuyerUserId());
+        AcctUser sellerUser = userService.findOne(paymentBO.getSellerUserId());
+        //判断2个人
+        if (payUser == null) {
+            throw new PaymentException("支付人信息有误");
+        }
+
+        if (sellerUser == null) {
+            throw new PaymentException("收款信息有误");
+        }
+
         if (tradeOrder == null) {
 
             //封装支付单信息
@@ -47,8 +73,8 @@ public class PaymentProvider {
             tradeOrder.setPayAmount(1321L);
             tradeOrder.setCreatedTime(new Date(System.currentTimeMillis()));
 
-            RedisHandler.set(tradeOrder.getId(),JsonUtil.convertString(tradeOrder));
-            PayTradeOrder  trade = JsonUtil.convertObject( RedisHandler.get(tradeOrder.getId()),PayTradeOrder.class);
+            //RedisHandler.set(tradeOrder.getId(), JsonUtil.convertString(tradeOrder));
+            //PayTradeOrder trade = JsonUtil.convertObject(RedisHandler.get(tradeOrder.getId()), PayTradeOrder.class);
             //新增支付单
             tradeOrder = tradeOrderService.create(tradeOrder);
         }
@@ -60,7 +86,23 @@ public class PaymentProvider {
             paymentResultBO.setTradeNo("");
             paymentResultBO.setResultCode(SystemConstants.RESULT_CODE_SUCCESS);
         }
-       //支付扣款
+        //支付扣款
+        TransferBO transferBO = new TransferBO();
+        transferBO.setFromUser(payUser);
+        transferBO.setToUser(sellerUser);
+        transferBO.setFromAmount(MoneyUtils.yunTosysUnit(paymentBO.getPaymount()));
+        transferBO.setToAmount(MoneyUtils.yunTosysUnit(paymentBO.getPaymount()));
+        transferBO.setTransferType(EnumTransferType.GENERALTRANSFER);
+        FundsRecordBO fundsRecordBO = new FundsRecordBO();
+        fundsRecordBO.setInFundsType(EnumFundsType.ORDER_SETTLE);
+        fundsRecordBO.setInFundsType(EnumFundsType.ORDER_CONSUMER);
+
+        fundsRecordBO.setOptUser("system");
+        fundsRecordBO.setOptUserName("system");
+        fundsRecordBO.setOrderNo(tradeOrder.getTradeNo());
+        fundsRecordBO.setOutOrderNo(tradeOrder.getOutTradeNo());
+        fundsRecordBO.setRefundDesc("订单支付 单号:" + tradeOrder.getOutTradeNo());
+        transferService.acctTransfer(transferBO, fundsRecordBO);
 
         return paymentResultBO;
     }
