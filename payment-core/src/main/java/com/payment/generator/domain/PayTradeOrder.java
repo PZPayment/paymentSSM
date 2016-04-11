@@ -6,6 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class PayTradeOrder extends AbstractEntity implements Serializable {
+
     private String tradeNo;
 
     private String outTradeNo;
@@ -29,6 +30,8 @@ public class PayTradeOrder extends AbstractEntity implements Serializable {
     private String remark;
 
     private String payUserId;
+
+    private String sellerUserId;
 
     private String callBackUrl;
 
@@ -138,6 +141,14 @@ public class PayTradeOrder extends AbstractEntity implements Serializable {
 
     public void setCallBackUrl(String callBackUrl) {
         this.callBackUrl = callBackUrl == null ? null : callBackUrl.trim();
+    }
+
+    public String getSellerUserId() {
+        return sellerUserId;
+    }
+
+    public void setSellerUserId(String sellerUserId) {
+        this.sellerUserId = sellerUserId;
     }
 
     public String getNotifyUrl() {

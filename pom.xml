@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>payment-api</module>
         <module>payment-core</module>
         <module>payment-comm</module>
         <module>payment-server</module>
@@ -40,6 +41,11 @@
             <dependency>
                 <groupId>com.payment</groupId>
                 <artifactId>payment-server</artifactId>
+                <version>${payment.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.payment</groupId>
+                <artifactId>payment-api</artifactId>
                 <version>${payment.version}</version>
             </dependency>
             <dependency>
@@ -137,6 +143,44 @@
                 <artifactId>druid</artifactId>
                 <version>1.0.2</version>
             </dependency>
+
+            <!--dubbo-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>dubbo</artifactId>
+                <version>2.4.10</version>
+                <exclusions>
+                    <exclusion>
+                        <artifactId>spring</artifactId>
+                        <groupId>org.springframework</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>curator-framework</artifactId>
+                        <groupId>com.netflix.curator</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>xmemcached</artifactId>
+                        <groupId>com.googlecode.xmemcached</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>cxf-rt-frontend-simple</artifactId>
+                        <groupId>org.apache.cxf</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>libthrift</artifactId>
+                        <groupId>org.apache.thrift</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <artifactId>cxf-rt-transports-http</artifactId>
+                        <groupId>org.apache.cxf</groupId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+
             <!-- 导入java ee jar 包 -->
             <!-- javax -->
             <dependency>
@@ -263,6 +307,24 @@
                 <groupId>org.springframework.data</groupId>
                 <artifactId>spring-data-redis</artifactId>
                 <version>1.6.0.RELEASE</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>jcl-over-slf4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-api</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
             <dependency>
                 <groupId>redis.clients</groupId>
@@ -275,7 +337,17 @@
                 <artifactId>json</artifactId>
                 <version>20141113</version>
             </dependency>
-
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>1.9.13</version>
+            </dependency>
+            <!--httpclient-->
+            <dependency>
+                <groupId>httpclient</groupId>
+                <artifactId>httpclient</artifactId>
+                <version>4.2.5</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
@@ -283,6 +355,16 @@
     <build>
         <pluginManagement>
             <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+
                 <!-- maven依赖管理插件,用于分析模块的依赖 -->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

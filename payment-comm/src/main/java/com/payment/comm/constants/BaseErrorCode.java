@@ -1,11 +1,11 @@
 package com.payment.comm.constants;
 
 /**
- * 版      权:  江苏千米网络科技有限公司  <br>
+ *
  * 包      名: com.payment.comm.constants  <br>
- * 描      述:  基础错误码  900000-999999      <br>
+ * 描      述:  基础错误码  900000-999999
  * 创 建 人 : 方超(OF716)  <br>
- * 修改时间:  16/1/20      <br>
+ * 修改时间:  16/1/20
  */
 public class BaseErrorCode {
 

@@ -1,23 +1,23 @@
 package com.payment.comm.constants;
 
 public enum EnumBalanceType {
-    BALANCE(Short.valueOf("1001"), "余额", true), POINT(Short.valueOf("1003"), "积分", true), OWB(
-            Short.valueOf("1004"), "在途资金", false), GUARANTEE(Short.valueOf("1005"), "担保资金", true),
-    FBB(Short.valueOf("1006"), "押金", true),CREDITS(Short.valueOf("1007"), "信用额度", false);
+    BALANCE(1001L, "余额", true), POINT(1002L, "积分", true),
+    OWB(1003L, "在途资金", false), GUARANTEE(1004L, "担保资金", true),
+    FBB(1005L, "押金", true),CREDITS(1006L, "信用额度", false);
 
-    private final Short balanceTypeId;
+    private final Long balanceTypeId;
 
     private final String balanceTypeName;
 
     private final boolean transfer;
 
-    EnumBalanceType(Short balanceTypeId, String balanceTypeName, boolean transfer) {
+    EnumBalanceType(Long balanceTypeId, String balanceTypeName, boolean transfer) {
         this.balanceTypeId = balanceTypeId;
         this.balanceTypeName = balanceTypeName;
         this.transfer = transfer;
     }
 
-    public short getBalanceTypeId() {
+    public Long getBalanceTypeId() {
         return balanceTypeId;
     }
 
@@ -29,9 +29,4 @@ public enum EnumBalanceType {
         return transfer;
     }
 
-    public static void main(String[] args) {
-        System.out.println(EnumBalanceType.BALANCE.getBalanceTypeId());
-        System.out.println(EnumBalanceType.BALANCE.balanceTypeId);
-        System.out.println(EnumBalanceType.BALANCE.getBalanceTypeName());
-    }
 }

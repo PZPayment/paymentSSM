@@ -6,9 +6,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class AcctBalance extends AbstractEntity implements Serializable {
+
     private Long balanceId;
 
     private String userId;
+
+    private Long balanceType;
 
     private Long balance;
 
@@ -57,6 +60,7 @@ public class AcctBalance extends AbstractEntity implements Serializable {
     public void setLastDate(Date lastDate) {
         this.lastDate = lastDate;
     }
+
 
     @Override
     public String toString() {

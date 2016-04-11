@@ -1,5 +1,6 @@
-package com.payment.trade;
+package com.payment.trade.service.impl;
 
+import com.alibaba.dubbo.config.annotation.Service;
 import com.payment.comm.base.exception.PaymentException;
 import com.payment.comm.constants.EnumFundsType;
 import com.payment.comm.constants.EnumTransferType;
@@ -8,24 +9,22 @@ import com.payment.comm.utils.MoneyUtils;
 import com.payment.generator.domain.AcctUser;
 import com.payment.generator.domain.PayTradeOrder;
 import com.payment.trade.bo.*;
+import com.payment.trade.service.PaymentService;
 import com.payment.trade.service.TradeOrderService;
 import com.payment.trade.service.TransferService;
 import com.payment.trade.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 
 /**
- * 版      权:  江苏千米网络科技有限公司  <br>
- * 包      名: com.kan.trade.payment  <br>
- * 描      述: 交易                     <br>
- * 创 建 人 : 方超(OF716)  <br>
- * 修改时间:  15/12/28      <br>
+ * 包      名: com.payment.trade.service.impl  <br>
+ * 描      述:   支付逻辑实现                     <br>
+ * 创 建 人 : kan <br>
  */
-@Service
-public class PaymentProvider {
+@Service(version="1.0.0")
+public class PaymentServiceImpl implements PaymentService {
 
     @Autowired
     TradeOrderService tradeOrderService;
@@ -36,24 +35,17 @@ public class PaymentProvider {
     @Autowired
     UserService userService;
 
-
-    /**
-     * 订单支付
-     *
-     * @param paymentBO
-     * @return
-     * @throws Exception
-     */
-
+    @Override
     @Transactional(rollbackFor = Exception.class)
-    public PaymentResultBO payment(PaymentBO paymentBO) throws Exception {
+    public PaymentResultBO payment(PaymentBO paymentBO) throws PaymentException {
         PaymentResultBO paymentResultBO = new PaymentResultBO();
 
-        PayTradeOrder tradeOrder =  tradeOrderService.findOne(paymentBO.getOrderNo());
+        PayTradeOrder tradeOrder =  tradeOrderService.findOneByOutTradeNo(paymentBO.getOrderNo());
 
         //2个人
-        AcctUser payUser = userService.findOne(paymentBO.getBuyerUserId());
-        AcctUser sellerUser = userService.findOne(paymentBO.getSellerUserId());
+        AcctUser payUser = userService.findUser(paymentBO.getBuyerUserId());
+        AcctUser sellerUser = userService.findUser(paymentBO.getSellerUserId());
+
         //判断2个人
         if (payUser == null) {
             throw new PaymentException("支付人信息有误");
@@ -64,7 +56,6 @@ public class PaymentProvider {
         }
 
         if (tradeOrder == null) {
-
             //封装支付单信息
             tradeOrder = new PayTradeOrder();
             tradeOrder.setPayUserId("13123");
@@ -72,9 +63,7 @@ public class PaymentProvider {
             tradeOrder.setOutTradeNo("21312312");
             tradeOrder.setPayAmount(1321L);
             tradeOrder.setCreatedTime(new Date(System.currentTimeMillis()));
-
-            //RedisHandler.set(tradeOrder.getId(), JsonUtil.convertString(tradeOrder));
-            //PayTradeOrder trade = JsonUtil.convertObject(RedisHandler.get(tradeOrder.getId()), PayTradeOrder.class);
+            tradeOrder.setCallBackUrl(paymentBO.getCallBackUrl());
             //新增支付单
             tradeOrder = tradeOrderService.create(tradeOrder);
         }
@@ -85,6 +74,7 @@ public class PaymentProvider {
             //返回
             paymentResultBO.setTradeNo("");
             paymentResultBO.setResultCode(SystemConstants.RESULT_CODE_SUCCESS);
+            return paymentResultBO;
         }
         //支付扣款
         TransferBO transferBO = new TransferBO();
@@ -111,29 +101,13 @@ public class PaymentProvider {
         return false;
     }
 
-    /**
-     * 交易退款
-     *
-     * @param refundBO
-     * @return
-     * @throws Exception
-     */
-    public RefundResultBO refund(RefundBO refundBO) throws Exception {
-        RefundResultBO refundResultBO = new RefundResultBO();
-
-        return refundResultBO;
+    @Override
+    public boolean paymentSettle(PaymentBO paymentBO) throws PaymentException {
+        return false;
     }
 
-
-    /**
-     * 转账方法
-     *
-     * @param transferBO
-     * @return
-     * @throws Exception
-     */
-    public TransferResultBO transfer(TransferBO transferBO) throws Exception {
-        TransferResultBO transferResultBO = new TransferResultBO();
-        return transferResultBO;
+    @Override
+    public RefundResultBO refund(RefundBO refundBO) throws PaymentException {
+        return null;
     }
 }

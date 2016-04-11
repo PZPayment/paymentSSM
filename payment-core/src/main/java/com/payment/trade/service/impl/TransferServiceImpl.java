@@ -22,11 +22,11 @@ import org.springframework.stereotype.Service;
 import java.util.Calendar;
 
 /**
- * 版      权:  江苏千米网络科技有限公司  <br>
+ *
  * 包      名: com.payment.trade.service.impl  <br>
- * 描      述: 转账的基础方法     <br>
+ * 描      述: 转账的基础方法
  * 创 建 人 : 方超(OF716)  <br>
- * 修改时间:  16/1/20      <br>
+ * 修改时间:  16/1/20
  */
 @Service
 public class TransferServiceImpl implements TransferService {
@@ -38,7 +38,7 @@ public class TransferServiceImpl implements TransferService {
     @Autowired
     AcctFundsService acctFundsService;
 
-    public void acctTransfer(TransferBO transferBO, FundsRecordBO fundsRecordBO) throws Exception {
+    public void acctTransfer(TransferBO transferBO, FundsRecordBO fundsRecordBO) throws PaymentException {
 
         //判断合法性
         if (transferBO.getFromUser().getUserId().equals(transferBO.getToUser().getUserId())) {
@@ -54,11 +54,7 @@ public class TransferServiceImpl implements TransferService {
         } catch (PaymentException e) {
             // 异常 向上抛
             throw e;
-        } catch (Exception e) {
-            // 异常 向上抛
-            throw new PaymentException(BaseErrorCode.SYSTEM_ERROR, e.getMessage());
         }
-
 
     }
 

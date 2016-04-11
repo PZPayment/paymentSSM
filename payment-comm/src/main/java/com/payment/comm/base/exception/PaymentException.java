@@ -5,11 +5,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * 版      权:  江苏千米网络科技有限公司  <br>
+ *
  * 包      名: com.payment.comm.base.exception  <br>
- * 描      述:                       <br>
+ * 描      述:
  * 创 建 人 : 方超(OF716)  <br>
- * 修改时间:  16/1/20      <br>
+ * 修改时间:  16/1/20
  */
 public class PaymentException extends Exception {
 

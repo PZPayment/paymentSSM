@@ -3,11 +3,11 @@ package com.payment.comm.utils;
 import java.math.BigDecimal;
 
 /**
- * 版      权:  江苏千米网络科技有限公司  <br>
+ *
  * 包      名: com.payment.comm.utils  <br>
- * 描      述:                       <br>
+ * 描      述:
  * 创 建 人 : 方超(OF716)  <br>
- * 修改时间:  16/1/28      <br>
+ * 修改时间:  16/1/28
  */
 public class MoneyUtils {
 
@@ -22,7 +22,7 @@ public class MoneyUtils {
      * @param amount - 金额（厘）
      * @return - 金额（元）
      */
-    public static BigDecimal sysUnitToYun(Long amount) {
+    public static BigDecimal sysUnitToYuan(Long amount) {
         if (amount == null) {
             return BigDecimal.ZERO;
         }
@@ -37,7 +37,7 @@ public class MoneyUtils {
      * @param amount - 金额（厘）
      * @return - 金额（元）
      */
-    public static Long yunTosysUnit(BigDecimal amount) {
+    public static Long yuanTosysUnit(BigDecimal amount) {
         if (amount == null) {
             return 0L;
         }

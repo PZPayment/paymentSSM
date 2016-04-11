@@ -5,11 +5,11 @@ import com.payment.generator.domain.AcctFundsRecord;
 import com.payment.generator.domain.AcctFundsRecordCriteria;
 
 /**
- * 版      权:  江苏千米网络科技有限公司  <br>
+ *
  * 包      名: com.payment.trade.service  <br>
- * 描      述:  流水相关操作                     <br>
+ * 描      述:  流水相关操作
  * 创 建 人 : 方超(OF716)  <br>
- * 修改时间:  16/1/28      <br>
+ * 修改时间:  16/1/28
  */
 public interface AcctFundsService extends BaseService<AcctFundsRecord,AcctFundsRecordCriteria> {
 }
