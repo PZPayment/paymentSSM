@@ -1,7 +1,10 @@
 package com.payment.controller;
 
+import com.payment.trade.PaymentProvider;
 import com.payment.trade.PaymentProviderImpl;
 import com.payment.trade.bo.PaymentBO;
+import com.payment.trade.bo.payMethod.PayMethod;
+import com.payment.trade.bo.payMethod.PayMethodOBP;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +25,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 public class PaymentController {
 
     @Autowired
-    private PaymentProviderImpl paymentProvider;
+    private PaymentProvider paymentProvider;
 
     @RequestMapping(value="/payment",method = GET)
     String home() {
@@ -31,9 +34,11 @@ public class PaymentController {
         paymentBO.setBuyerUserId("A882699");
         paymentBO.setBankCode("0990");
         paymentBO.setOrderNo("YT882699");
-        paymentBO.setPaymount(new BigDecimal("10"));
+        paymentBO.setSettleAmount(new BigDecimal("10"));
+        PayMethodOBP payMethodOBP = new PayMethodOBP();
+        payMethodOBP.setAmount(new BigDecimal("10"));
         try {
-            System.out.println(paymentProvider.payment(paymentBO));
+            System.out.println(paymentProvider.realTimePayment(paymentBO,payMethodOBP));
         } catch (Exception e) {
             System.out.println(e);
         }

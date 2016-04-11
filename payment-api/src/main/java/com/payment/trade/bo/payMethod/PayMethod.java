@@ -69,6 +69,14 @@ public abstract class PayMethod extends BaseBean implements Cloneable  {
     }
 
 
+    /**
+     * 是否是实时交易, 实时交易 true, 非实时 false
+     * @return
+     */
+    public Boolean isAfterPay(){
+        return !payType.isRealTime();
+    }
+
 
     public EnumPayType getPayType() {
         return payType;
