@@ -62,6 +62,14 @@ public class AcctBalance extends AbstractEntity implements Serializable {
     }
 
 
+    public Long getBalanceType() {
+        return balanceType;
+    }
+
+    public void setBalanceType(Long balanceType) {
+        this.balanceType = balanceType;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

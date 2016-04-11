@@ -1,13 +1,12 @@
 package com.payment.comm.base.bean;
 
 import com.payment.comm.base.exception.PaymentException;
-import com.payment.comm.constants.BaseErrorCode;
+import com.payment.comm.errorCode.BaseErrorCode;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 
 /**
  *

@@ -1,4 +1,4 @@
-package com.payment.comm.constants;
+package com.payment.comm.errorCode;
 
 /**
  *

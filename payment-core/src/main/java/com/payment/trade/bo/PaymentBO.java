@@ -1,12 +1,16 @@
 package com.payment.trade.bo;
 
+import com.payment.comm.base.bo.BaseApiBean;
+import com.payment.comm.base.exception.PaymentException;
+import com.payment.comm.utils.MoneyUtils;
+
 import java.math.BigDecimal;
 
 /**
  *  交易请求BO
  * Created by fangchao on 15/12/24.
  */
-public class PaymentBO {
+public class PaymentBO extends BaseApiBean {
 
     /**
      * 订单号，业务系统订单号(外部订单号)
@@ -25,10 +29,10 @@ public class PaymentBO {
      */
     private String sellerUserId;
     /**
-     * 支付金额
+     * 结算金额
      * 必传
      */
-    private BigDecimal paymount;
+    private BigDecimal settleAmount;
 
     /**
      * 支付方式
@@ -69,12 +73,12 @@ public class PaymentBO {
         this.sellerUserId = sellerUserId;
     }
 
-    public BigDecimal getPaymount() {
-        return paymount;
+    public BigDecimal getSettleAmount() {
+        return settleAmount;
     }
 
-    public void setPaymount(BigDecimal paymount) {
-        this.paymount = paymount;
+    public void setSettleAmount(BigDecimal settleAmount) {
+        this.settleAmount = settleAmount;
     }
 
     public String getPayType() {
@@ -99,5 +103,18 @@ public class PaymentBO {
 
     public void setCallBackUrl(String callBackUrl) {
         this.callBackUrl = callBackUrl;
+    }
+
+    @Override
+    public void formatAmount() {
+        if (!isFormat()) {
+            settleAmount = MoneyUtils.yuanTosysUnitP(settleAmount);
+            setFormat(true);
+        }
+    }
+
+    @Override
+    public boolean validate() throws PaymentException {
+        return super.validate();
     }
 }

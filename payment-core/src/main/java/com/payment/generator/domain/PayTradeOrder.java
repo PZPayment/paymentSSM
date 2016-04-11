@@ -7,37 +7,104 @@ import java.util.Date;
 
 public class PayTradeOrder extends AbstractEntity implements Serializable {
 
+    private static final long serialVersionUID = -4673317001165812066L;
+    /**
+     * 支付单号
+     */
     private String tradeNo;
 
+    /**
+     * 外部订单号
+     */
     private String outTradeNo;
 
+    /**
+     * 生成时间
+     */
     private Date createdTime;
 
+    /**
+     * 支付到期时间
+     */
     private Date expDate;
 
+    /**
+     * 支付完成时间
+     */
     private Date dealTime;
 
-    private Long payAmount;
-
-    private Long refundAmount;
-
-    private Short tradeState;
-
-    private Short refundState;
-
-    private String payIp;
-
-    private String remark;
-
+    /**
+     * 买家用户编号
+     */
     private String payUserId;
 
+    /**
+     * 卖家用户编号
+     */
     private String sellerUserId;
 
+    /**
+     * 支付金额
+     */
+    private Long payAmount;
+
+    /**
+     * 结算金额
+     */
+    private Long settleAmount;
+
+    /**
+     * 退款金额
+     */
+    private Long refundAmount;
+    /**
+     * 退款结算金额
+     */
+    private Long settleRefundAmount;
+
+    /**
+     * 支付状态 0:未支付 1:已支付 2:订单关闭
+     */
+    private Short tradeState;
+
+    /**
+     * 支付状态 0:未退款 1:已退款 2:部分退款
+     */
+    private Short refundState;
+
+    /**
+     * 支付IP
+     */
+    private String payIp;
+
+    /**
+     * 备注
+     */
+    private String remark;
+
+
+
+    /**
+     * 回调地址
+     */
     private String callBackUrl;
 
+    /**
+     * 通知时间
+     */
     private String notifyUrl;
 
-    private static final long serialVersionUID = 1L;
+    /**
+     * 支付方式
+     * @return
+     */
+    private String payType;
+
+    /**
+     * 渠道编号
+     * @return
+     */
+    private String gateCode;
 
     public String getTradeNo() {
         return tradeNo;
@@ -157,6 +224,38 @@ public class PayTradeOrder extends AbstractEntity implements Serializable {
 
     public void setNotifyUrl(String notifyUrl) {
         this.notifyUrl = notifyUrl == null ? null : notifyUrl.trim();
+    }
+
+    public String getPayType() {
+        return payType;
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
+    }
+
+    public String getGateCode() {
+        return gateCode;
+    }
+
+    public void setGateCode(String gateCode) {
+        this.gateCode = gateCode;
+    }
+
+    public Long getSettleAmount() {
+        return settleAmount;
+    }
+
+    public void setSettleAmount(Long settleAmount) {
+        this.settleAmount = settleAmount;
+    }
+
+    public Long getSettleRefundAmount() {
+        return settleRefundAmount;
+    }
+
+    public void setSettleRefundAmount(Long settleRefundAmount) {
+        this.settleRefundAmount = settleRefundAmount;
     }
 
     @Override

@@ -5,6 +5,7 @@ import com.payment.trade.bo.PaymentBO;
 import com.payment.trade.bo.PaymentResultBO;
 import com.payment.trade.bo.RefundBO;
 import com.payment.trade.bo.RefundResultBO;
+import com.payment.trade.bo.payMethod.PayMethod;
 
 /**
  * 包      名: com.payment.trade.service  <br>
@@ -13,7 +14,7 @@ import com.payment.trade.bo.RefundResultBO;
  */
 public interface PaymentService {
 
-    PaymentResultBO payment(PaymentBO paymentBO) throws PaymentException;
+    PaymentResultBO payment(PaymentBO paymentBO, PayMethod payMethod) throws PaymentException;
 
     boolean paymentSettle(PaymentBO paymentBO) throws PaymentException;
 

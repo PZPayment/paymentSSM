@@ -1,7 +1,7 @@
 package com.payment.comm.utils;
 
 import com.payment.comm.base.exception.PaymentException;
-import com.payment.comm.constants.BaseErrorCode;
+import com.payment.comm.errorCode.BaseErrorCode;
 import org.codehaus.jackson.map.DeserializationConfig;
 import org.codehaus.jackson.map.ObjectMapper;
 

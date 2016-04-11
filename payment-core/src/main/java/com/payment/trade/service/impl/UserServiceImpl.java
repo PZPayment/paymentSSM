@@ -4,7 +4,7 @@ import com.payment.comm.base.dao.BaseDao;
 import com.payment.comm.base.exception.PaymentException;
 import com.payment.comm.base.service.BaseServiceImpl;
 import com.payment.comm.constants.EnumBalanceType;
-import com.payment.comm.constants.UserErrorCode;
+import com.payment.comm.errorCode.UserErrorCode;
 import com.payment.comm.handler.RedisHandler;
 import com.payment.comm.utils.JsonUtil;
 import com.payment.comm.utils.MoneyUtils;
@@ -64,11 +64,11 @@ public class UserServiceImpl extends BaseServiceImpl<AcctUser, AcctUserCriteria>
         List<AcctBalance> list = acctBalanceMapper.selectByExample(acctBalanceCriteria);
         if (!CollectionUtils.isEmpty(list)) {
             for (AcctBalance acctBalance : list) {
-                if (EnumBalanceType.BALANCE.getBalanceTypeId().equals(acctBalance.getBalanceId())) {
+                if (EnumBalanceType.BALANCE.getBalanceTypeId().equals(acctBalance.getBalanceType())) {
                     acctResultBO.setBalance(MoneyUtils.sysUnitToYuan(acctBalance.getBalance()));
-                } else if (EnumBalanceType.OWB.getBalanceTypeId().equals(acctBalance.getBalanceId())) {
+                } else if (EnumBalanceType.OWB.getBalanceTypeId().equals(acctBalance.getBalanceType())) {
                     acctResultBO.setIntransitBalance(MoneyUtils.sysUnitToYuan(acctBalance.getBalance()));
-                } else if (EnumBalanceType.FBB.getBalanceTypeId().equals(acctBalance.getBalanceId())) {
+                } else if (EnumBalanceType.FBB.getBalanceTypeId().equals(acctBalance.getBalanceType())) {
                     acctResultBO.setForegiftBalance(MoneyUtils.sysUnitToYuan(acctBalance.getBalance()));
                 }
             }

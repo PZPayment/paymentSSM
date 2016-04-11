@@ -2,6 +2,7 @@ package com.payment.trade;
 
 import com.payment.comm.base.exception.PaymentException;
 import com.payment.trade.bo.DepositBO;
+import com.payment.trade.bo.payMethod.PayMethod;
 
 /**
  * 包      名: com.payment.trade  <br>
@@ -14,11 +15,12 @@ public class DepositProviderImpl implements DepositProvider {
      * 用户充值接口
      *
      * @param depositBO
+     * @param payMethod
      * @return 返回充值订单号
      * @throws PaymentException
      * @author kan
      */
-    public String createDeposit(DepositBO depositBO) throws PaymentException{
+    public String createDeposit(DepositBO depositBO, PayMethod payMethod) throws PaymentException{
         return "";
     }
 

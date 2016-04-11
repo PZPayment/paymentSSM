@@ -1,9 +1,9 @@
-package com.payment.comm.constants;
+package com.payment.comm.errorCode;
 
 /**
  *
  * 包      名: com.payment.comm.constants  <br>
- * 描      述:
+ * 描      述: 用户编号错误编号
  * 创 建 人 : 方超(OF716)  <br>
  * 修改时间:  16/3/9
  */

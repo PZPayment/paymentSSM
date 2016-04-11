@@ -14,4 +14,5 @@ import com.payment.generator.domain.PayTradeOrderCriteria;
 public interface TradeOrderService extends BaseService<PayTradeOrder,PayTradeOrderCriteria> {
 
 
+    String generateTradeNo();
 }

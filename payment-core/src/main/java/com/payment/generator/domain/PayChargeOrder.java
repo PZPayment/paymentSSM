@@ -1,9 +1,12 @@
 package com.payment.generator.domain;
 
+import com.payment.comm.base.domain.AbstractEntity;
+
 import java.io.Serializable;
 import java.util.Date;
 
-public class PayChargeOrder implements Serializable {
+public class PayChargeOrder extends AbstractEntity implements Serializable {
+
     private String chargeNo;
 
     private Long chargeAmount;
@@ -22,6 +25,7 @@ public class PayChargeOrder implements Serializable {
 
     private String remark;
 
+    private String payType;
     private static final long serialVersionUID = 1L;
 
     public String getChargeNo() {
@@ -96,6 +100,14 @@ public class PayChargeOrder implements Serializable {
         this.remark = remark == null ? null : remark.trim();
     }
 
+    public String getPayType() {
+        return payType;
+    }
+
+    public void setPayType(String payType) {
+        this.payType = payType;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -114,5 +126,10 @@ public class PayChargeOrder implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    @Override
+    public String getId() {
+        return chargeNo;
     }
 }

@@ -2,6 +2,7 @@ package com.payment.trade;
 
 import com.payment.comm.base.exception.PaymentException;
 import com.payment.trade.bo.*;
+import com.payment.trade.bo.payMethod.PayMethod;
 
 /**
  *
@@ -19,7 +20,7 @@ public interface PaymentProvider {
      * @return
      * @throws Exception
      */
-     PaymentResultBO realTimePayment(PaymentBO paymentBO) throws PaymentException;
+     PaymentResultBO realTimePayment(PaymentBO paymentBO,PayMethod payMethodBO) throws PaymentException;
 
     /**
      * 订单担保支付
@@ -28,7 +29,7 @@ public interface PaymentProvider {
      * @return
      * @throws Exception
      */
-    PaymentResultBO guaranteePayment(PaymentBO paymentBO) throws PaymentException;
+    PaymentResultBO guaranteePayment(PaymentBO paymentBO,PayMethod payMethodBO) throws PaymentException;
 
     /**
      * 交易退款

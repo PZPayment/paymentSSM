@@ -47,4 +47,20 @@ public class MoneyUtils {
         return result.longValue();
     }
 
+    /**
+     * 系统金额单位转到元（精确到分）
+     *
+     * @param amount - 金额（厘）
+     * @return - 金额（元）
+     */
+    public static BigDecimal yuanTosysUnitP(BigDecimal amount) {
+        if (amount == null) {
+            return BigDecimal.ZERO;
+        }
+
+        BigDecimal result = amount.multiply(new BigDecimal(SYS_MONEY_UNIT));
+        result = result.setScale(0, BigDecimal.ROUND_HALF_UP);
+        return result;
+    }
+
 }
