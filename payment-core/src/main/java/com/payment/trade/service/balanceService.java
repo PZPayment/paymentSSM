@@ -1,9 +1,8 @@
 package com.payment.trade.service;
 
 import com.payment.comm.base.service.BaseService;
-import com.payment.generator.domain.AcctBalance;
-import com.payment.generator.domain.AcctBalanceCriteria;
-import org.springframework.stereotype.Service;
+import com.payment.domain.Balance;
+import com.payment.domain.BalanceCriteria;
 
 /**
  *
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service;
  * 修改时间:  16/1/20
  */
 
-public interface BalanceService extends BaseService<AcctBalance,AcctBalanceCriteria> {
+public interface BalanceService extends BaseService<Balance,BalanceCriteria> {
 
-   AcctBalance getBalanceByUserId(String userId);
+   Balance getBalanceByUserId(String userId);
 }

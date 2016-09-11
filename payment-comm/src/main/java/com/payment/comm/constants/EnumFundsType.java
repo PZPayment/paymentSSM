@@ -5,10 +5,6 @@ import java.util.List;
 
 /**
  * 资金流水类型
- * AcctUser: Miner
- * Date: 14-6-18
- * Time: 下午3:15
- * To change this template use File | Settings | File Templates.
  */
 public enum EnumFundsType {
 

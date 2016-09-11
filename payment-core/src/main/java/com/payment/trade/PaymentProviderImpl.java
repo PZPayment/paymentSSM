@@ -1,24 +1,12 @@
 package com.payment.trade;
 
 import com.payment.comm.base.exception.PaymentException;
-import com.payment.comm.constants.EnumFundsType;
-import com.payment.comm.constants.EnumTransferType;
-import com.payment.comm.constants.SystemConstants;
 import com.payment.comm.errorCode.BaseErrorCode;
-import com.payment.comm.utils.MoneyUtils;
-import com.payment.generator.domain.AcctUser;
-import com.payment.generator.domain.PayTradeOrder;
 import com.payment.trade.bo.*;
 import com.payment.trade.bo.payMethod.PayMethod;
 import com.payment.trade.service.PaymentService;
-import com.payment.trade.service.TradeOrderService;
-import com.payment.trade.service.TransferService;
-import com.payment.trade.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Date;
 
 /**
  * 包      名: com.kan.trade.payment  <br>
@@ -35,6 +23,16 @@ public class PaymentProviderImpl implements PaymentProvider {
 
     @Override
     public PaymentResultBO realTimePayment(PaymentBO paymentBO, PayMethod payMethod) throws PaymentException {
+        return this.payment(paymentBO,payMethod,true);
+    }
+
+    @Override
+    public PaymentResultBO guaranteePayment(PaymentBO paymentBO, PayMethod payMethod) throws PaymentException {
+
+        return this.payment(paymentBO,payMethod,false);
+    }
+
+    public PaymentResultBO payment(PaymentBO paymentBO, PayMethod payMethod, boolean settleType) throws PaymentException {
         //判断空参数
         if (null == paymentBO || null == payMethod) {
             throw new PaymentException(BaseErrorCode.ARGS_IS_NULL);
@@ -45,16 +43,7 @@ public class PaymentProviderImpl implements PaymentProvider {
         //格式化金额
         paymentBO.formatAmount();
         payMethod.formatAmount();
-
-        paymentService.payment(paymentBO,payMethod);
-
-
-        return null;
-    }
-
-    @Override
-    public PaymentResultBO guaranteePayment(PaymentBO paymentBO, PayMethod payMethodBO) throws PaymentException {
-        return null;
+        return paymentService.payment(paymentBO,payMethod,settleType);
     }
 
     /**
@@ -65,9 +54,15 @@ public class PaymentProviderImpl implements PaymentProvider {
      * @throws Exception
      */
     public RefundResultBO refund(RefundBO refundBO) throws PaymentException {
-        RefundResultBO refundResultBO = new RefundResultBO();
-
-        return refundResultBO;
+        //判断空参数
+        if (null == refundBO) {
+            throw new PaymentException(BaseErrorCode.ARGS_IS_NULL);
+        }
+        //判断bean数据合法性
+        refundBO.validate();
+        //格式化金额
+        refundBO.validate();
+        return paymentService.refund(refundBO);
     }
 
 

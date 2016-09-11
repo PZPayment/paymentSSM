@@ -1,6 +1,11 @@
 package com.payment.trade.service;
 
 
+import com.payment.comm.base.exception.PaymentException;
+import com.payment.trade.bo.PayBO;
+
+import java.util.Map;
+
 /**
  * 支付用service
  * @author kan
@@ -8,17 +13,36 @@ package com.payment.trade.service;
  * @since 2015/8/10 15:04
  */
 public interface PayService {
+    /**
+     * 银行页面回调标识
+     */
+    String CALLBACK_HTML = "html";
 
     /**
-     * 支付宝支付
-     * 1、 获取订单信息
-     * 2、 根据订单信息以及支付信息生成签名
-     * 3、 返回支付地址
-     * @param  orderCount 单次需要支付的订单数量
-     * @param p 支付宝配置信息
-     * @param order 订单信息（单笔订单支付是需要用到）
-     * @author lih @since 2015年8月10日15:58:11
-     * @return 支付地址
+     * 银行后台回调标识
      */
-    //String  getAlipay(Pay p, Order order, String goodsName, Long orderCount);
+    String CALLBACK_SERVER = "server";
+
+    /**
+     * 获取在线支付跳转页面
+     *
+     * @param payBO - 支付详情
+     * @return - 在线支付跳转页面
+     * @throws PaymentException
+     */
+    String buildBankHtml(PayBO payBO) throws PaymentException;
+
+
+    /**
+     * 支付回调接口，
+     * 描述：支付渠道回调验证
+     * @param paraMap  - 请求参数集
+     * @param payNo    -
+     * @param remoteIp - 请求Ip地址
+     * @param type     - ()
+     * @return - 回调结果（type为"html"时）
+     */
+    String callback(Map<String, String[]> paraMap, String payNo, String remoteIp, String type) throws PaymentException;
+
+
 }

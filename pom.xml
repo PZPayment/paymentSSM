@@ -12,6 +12,7 @@
     <modules>
         <module>payment-api</module>
         <module>payment-core</module>
+        <module>payment-dal</module>
         <module>payment-comm</module>
         <module>payment-server</module>
     </modules>
@@ -31,6 +32,11 @@
             <dependency>
                 <groupId>com.payment</groupId>
                 <artifactId>payment-core</artifactId>
+                <version>${payment.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.payment</groupId>
+                <artifactId>payment-dal</artifactId>
                 <version>${payment.version}</version>
             </dependency>
             <dependency>
@@ -124,7 +130,13 @@
                 <artifactId>spring-context</artifactId>
                 <version>${spring.version}</version>
             </dependency>
-
+            <!--ojdbc14-->
+            <dependency>
+                <groupId>oracle</groupId>
+                <artifactId>ojdbc14</artifactId>
+                <version>10.2.0.4</version>
+                <scope>runtime</scope>
+            </dependency>
             <!-- mybatis核心包 -->
             <dependency>
                 <groupId>org.mybatis</groupId>
@@ -145,41 +157,41 @@
             </dependency>
 
             <!--dubbo-->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>dubbo</artifactId>
-                <version>2.4.10</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>spring</artifactId>
-                        <groupId>org.springframework</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>curator-framework</artifactId>
-                        <groupId>com.netflix.curator</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>xmemcached</artifactId>
-                        <groupId>com.googlecode.xmemcached</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>cxf-rt-frontend-simple</artifactId>
-                        <groupId>org.apache.cxf</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>libthrift</artifactId>
-                        <groupId>org.apache.thrift</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <artifactId>cxf-rt-transports-http</artifactId>
-                        <groupId>org.apache.cxf</groupId>
-                    </exclusion>
-                    <exclusion>
-                        <groupId>log4j</groupId>
-                        <artifactId>log4j</artifactId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>com.alibaba</groupId>-->
+                <!--<artifactId>dubbo</artifactId>-->
+                <!--<version>2.4.10</version>-->
+                <!--<exclusions>-->
+                    <!--<exclusion>-->
+                        <!--<artifactId>spring</artifactId>-->
+                        <!--<groupId>org.springframework</groupId>-->
+                    <!--</exclusion>-->
+                    <!--<exclusion>-->
+                        <!--<artifactId>curator-framework</artifactId>-->
+                        <!--<groupId>com.netflix.curator</groupId>-->
+                    <!--</exclusion>-->
+                    <!--<exclusion>-->
+                        <!--<artifactId>xmemcached</artifactId>-->
+                        <!--<groupId>com.googlecode.xmemcached</groupId>-->
+                    <!--</exclusion>-->
+                    <!--<exclusion>-->
+                        <!--<artifactId>cxf-rt-frontend-simple</artifactId>-->
+                        <!--<groupId>org.apache.cxf</groupId>-->
+                    <!--</exclusion>-->
+                    <!--<exclusion>-->
+                        <!--<artifactId>libthrift</artifactId>-->
+                        <!--<groupId>org.apache.thrift</groupId>-->
+                    <!--</exclusion>-->
+                    <!--<exclusion>-->
+                        <!--<artifactId>cxf-rt-transports-http</artifactId>-->
+                        <!--<groupId>org.apache.cxf</groupId>-->
+                    <!--</exclusion>-->
+                    <!--<exclusion>-->
+                        <!--<groupId>log4j</groupId>-->
+                        <!--<artifactId>log4j</artifactId>-->
+                    <!--</exclusion>-->
+                <!--</exclusions>-->
+            <!--</dependency>-->
 
             <!-- 导入java ee jar 包 -->
             <!-- javax -->
@@ -348,10 +360,22 @@
                 <artifactId>httpclient</artifactId>
                 <version>4.2.5</version>
             </dependency>
+            <!--httpcore-->
+            <dependency>
+                <groupId>org.apache.httpcomponents</groupId>
+                <artifactId>httpcore</artifactId>
+                <version>4.4.4</version>
+            </dependency>
+
+            <!--xstream-->
+            <dependency>
+                <groupId>com.thoughtworks.xstream</groupId>
+                <artifactId>xstream</artifactId>
+                <version>1.4.9</version>
+            </dependency>
 
         </dependencies>
     </dependencyManagement>
-
     <build>
         <pluginManagement>
             <plugins>
@@ -408,9 +432,29 @@
                 </plugin>
             </plugins>
         </pluginManagement>
+        <resources>
+        <resource>
+            <directory>src/main/java/</directory>
+            <includes>
+                <include>**/*.properties</include>
+                <include>**/*.xml</include>
+            </includes>
+            <excludes>
+                <exclude>**/.git/*</exclude>
+            </excludes>
+        </resource>
+        <resource>
+            <directory>src/main/resources/</directory>
+            <includes>
+                <include>**/*.properties</include>
+                <include>**/*.xml</include>
+            </includes>
+            <excludes>
+                <exclude>**/.git/*</exclude>
+            </excludes>
+        </resource>
+        </resources>
     </build>
-
-
     <repositories>
         <repository>
             <id>nexus release</id>

@@ -1,6 +1,5 @@
 package com.payment.user;
 
-import com.alibaba.dubbo.config.annotation.Service;
 import com.payment.comm.base.exception.ExceptionHanlder;
 import com.payment.comm.base.exception.PaymentException;
 import com.payment.comm.errorCode.BaseErrorCode;
@@ -8,13 +7,14 @@ import com.payment.trade.service.UserService;
 import com.payment.user.bo.UserAcctResultBO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * 包      名: com.payment.user  <br>
  * 描      述:   用户操作<br>
  * 创 建 人 : kan <br>
  */
-@Service(version="1.0")
+@Service
 public class UserProviderImpl implements UserProvider {
 
     @Autowired

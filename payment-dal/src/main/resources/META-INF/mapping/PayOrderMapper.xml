@@ -1,0 +1,529 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.payment.dao.PayOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.payment.domain.PayOrder" >
+    <id column="PAY_NO" property="payNo" jdbcType="VARCHAR" />
+    <result column="OUT_PAY_NO" property="outPayNo" jdbcType="VARCHAR" />
+    <result column="GATE_ORDER_NO" property="gateOrderNo" jdbcType="VARCHAR" />
+    <result column="BANK_ORDER_NO" property="bankOrderNo" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="EXP_DATE" property="expDate" jdbcType="TIMESTAMP" />
+    <result column="DEAL_TIME" property="dealTime" jdbcType="TIMESTAMP" />
+    <result column="CALLBACK_TIME" property="callbackTime" jdbcType="TIMESTAMP" />
+    <result column="PAY_AMOUNT" property="payAmount" jdbcType="DECIMAL" />
+    <result column="COMMISSION_AMOUNT" property="commissionAmount" jdbcType="DECIMAL" />
+    <result column="REAL_AMOUNT" property="realAmount" jdbcType="DECIMAL" />
+    <result column="TRADE_STATE" property="tradeState" jdbcType="DECIMAL" />
+    <result column="CALLBACK_STATE" property="callbackState" jdbcType="DECIMAL" />
+    <result column="REFUND_STATE" property="refundState" jdbcType="DECIMAL" />
+    <result column="REFUND_AMOUNT" property="refundAmount" jdbcType="DECIMAL" />
+    <result column="BANK_CODE" property="bankCode" jdbcType="VARCHAR" />
+    <result column="BANK_NAME" property="bankName" jdbcType="VARCHAR" />
+    <result column="PAY_IP" property="payIp" jdbcType="VARCHAR" />
+    <result column="CALLBACK_URL" property="callbackUrl" jdbcType="VARCHAR" />
+    <result column="NONTIFY_URL" property="nontifyUrl" jdbcType="VARCHAR" />
+    <result column="CHECK_NO" property="checkNo" jdbcType="VARCHAR" />
+    <result column="DEPOSIT_NO" property="depositNo" jdbcType="VARCHAR" />
+    <result column="REFUND_TIME" property="refundTime" jdbcType="TIMESTAMP" />
+    <result column="PAY_USER_ID" property="payUserId" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    PAY_NO, OUT_PAY_NO, GATE_ORDER_NO, BANK_ORDER_NO, CREATE_TIME, EXP_DATE, DEAL_TIME, 
+    CALLBACK_TIME, PAY_AMOUNT, COMMISSION_AMOUNT, REAL_AMOUNT, TRADE_STATE, CALLBACK_STATE, 
+    REFUND_STATE, REFUND_AMOUNT, BANK_CODE, BANK_NAME, PAY_IP, CALLBACK_URL, NONTIFY_URL, 
+    CHECK_NO, DEPOSIT_NO, REFUND_TIME, PAY_USER_ID, REMARK
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payment.domain.PayOrderCriteria" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from TB_PAY_ORDER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from TB_PAY_ORDER
+    where PAY_NO = #{payNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from TB_PAY_ORDER
+    where PAY_NO = #{payNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.payment.domain.PayOrderCriteria" >
+    delete from TB_PAY_ORDER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.payment.domain.PayOrder" >
+    insert into TB_PAY_ORDER (PAY_NO, OUT_PAY_NO, GATE_ORDER_NO, 
+      BANK_ORDER_NO, CREATE_TIME, EXP_DATE, 
+      DEAL_TIME, CALLBACK_TIME, PAY_AMOUNT, 
+      COMMISSION_AMOUNT, REAL_AMOUNT, TRADE_STATE, 
+      CALLBACK_STATE, REFUND_STATE, REFUND_AMOUNT, 
+      BANK_CODE, BANK_NAME, PAY_IP, 
+      CALLBACK_URL, NONTIFY_URL, CHECK_NO, 
+      DEPOSIT_NO, REFUND_TIME, PAY_USER_ID, 
+      REMARK)
+    values (#{payNo,jdbcType=VARCHAR}, #{outPayNo,jdbcType=VARCHAR}, #{gateOrderNo,jdbcType=VARCHAR}, 
+      #{bankOrderNo,jdbcType=VARCHAR}, #{createTime,jdbcType=DATE}, #{expDate,jdbcType=DATE}, 
+      #{dealTime,jdbcType=DATE}, #{callbackTime,jdbcType=DATE}, #{payAmount,jdbcType=DECIMAL}, 
+      #{commissionAmount,jdbcType=DECIMAL}, #{realAmount,jdbcType=DECIMAL}, #{tradeState,jdbcType=DECIMAL}, 
+      #{callbackState,jdbcType=DECIMAL}, #{refundState,jdbcType=DECIMAL}, #{refundAmount,jdbcType=DECIMAL}, 
+      #{bankCode,jdbcType=VARCHAR}, #{bankName,jdbcType=VARCHAR}, #{payIp,jdbcType=VARCHAR}, 
+      #{callbackUrl,jdbcType=VARCHAR}, #{nontifyUrl,jdbcType=VARCHAR}, #{checkNo,jdbcType=VARCHAR}, 
+      #{depositNo,jdbcType=VARCHAR}, #{refundTime,jdbcType=DATE}, #{payUserId,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.payment.domain.PayOrder" >
+    insert into TB_PAY_ORDER
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="payNo != null" >
+        PAY_NO,
+      </if>
+      <if test="outPayNo != null" >
+        OUT_PAY_NO,
+      </if>
+      <if test="gateOrderNo != null" >
+        GATE_ORDER_NO,
+      </if>
+      <if test="bankOrderNo != null" >
+        BANK_ORDER_NO,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="expDate != null" >
+        EXP_DATE,
+      </if>
+      <if test="dealTime != null" >
+        DEAL_TIME,
+      </if>
+      <if test="callbackTime != null" >
+        CALLBACK_TIME,
+      </if>
+      <if test="payAmount != null" >
+        PAY_AMOUNT,
+      </if>
+      <if test="commissionAmount != null" >
+        COMMISSION_AMOUNT,
+      </if>
+      <if test="realAmount != null" >
+        REAL_AMOUNT,
+      </if>
+      <if test="tradeState != null" >
+        TRADE_STATE,
+      </if>
+      <if test="callbackState != null" >
+        CALLBACK_STATE,
+      </if>
+      <if test="refundState != null" >
+        REFUND_STATE,
+      </if>
+      <if test="refundAmount != null" >
+        REFUND_AMOUNT,
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE,
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME,
+      </if>
+      <if test="payIp != null" >
+        PAY_IP,
+      </if>
+      <if test="callbackUrl != null" >
+        CALLBACK_URL,
+      </if>
+      <if test="nontifyUrl != null" >
+        NONTIFY_URL,
+      </if>
+      <if test="checkNo != null" >
+        CHECK_NO,
+      </if>
+      <if test="depositNo != null" >
+        DEPOSIT_NO,
+      </if>
+      <if test="refundTime != null" >
+        REFUND_TIME,
+      </if>
+      <if test="payUserId != null" >
+        PAY_USER_ID,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="payNo != null" >
+        #{payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="outPayNo != null" >
+        #{outPayNo,jdbcType=VARCHAR},
+      </if>
+      <if test="gateOrderNo != null" >
+        #{gateOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankOrderNo != null" >
+        #{bankOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=DATE},
+      </if>
+      <if test="expDate != null" >
+        #{expDate,jdbcType=DATE},
+      </if>
+      <if test="dealTime != null" >
+        #{dealTime,jdbcType=DATE},
+      </if>
+      <if test="callbackTime != null" >
+        #{callbackTime,jdbcType=DATE},
+      </if>
+      <if test="payAmount != null" >
+        #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="commissionAmount != null" >
+        #{commissionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="realAmount != null" >
+        #{realAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeState != null" >
+        #{tradeState,jdbcType=DECIMAL},
+      </if>
+      <if test="callbackState != null" >
+        #{callbackState,jdbcType=DECIMAL},
+      </if>
+      <if test="refundState != null" >
+        #{refundState,jdbcType=DECIMAL},
+      </if>
+      <if test="refundAmount != null" >
+        #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="bankCode != null" >
+        #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="payIp != null" >
+        #{payIp,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackUrl != null" >
+        #{callbackUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="nontifyUrl != null" >
+        #{nontifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="checkNo != null" >
+        #{checkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="depositNo != null" >
+        #{depositNo,jdbcType=VARCHAR},
+      </if>
+      <if test="refundTime != null" >
+        #{refundTime,jdbcType=DATE},
+      </if>
+      <if test="payUserId != null" >
+        #{payUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.payment.domain.PayOrderCriteria" resultType="java.lang.Integer" >
+    select count(*) from TB_PAY_ORDER
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update TB_PAY_ORDER
+    <set >
+      <if test="record.payNo != null" >
+        PAY_NO = #{record.payNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.outPayNo != null" >
+        OUT_PAY_NO = #{record.outPayNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gateOrderNo != null" >
+        GATE_ORDER_NO = #{record.gateOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankOrderNo != null" >
+        BANK_ORDER_NO = #{record.bankOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      </if>
+      <if test="record.expDate != null" >
+        EXP_DATE = #{record.expDate,jdbcType=DATE},
+      </if>
+      <if test="record.dealTime != null" >
+        DEAL_TIME = #{record.dealTime,jdbcType=DATE},
+      </if>
+      <if test="record.callbackTime != null" >
+        CALLBACK_TIME = #{record.callbackTime,jdbcType=DATE},
+      </if>
+      <if test="record.payAmount != null" >
+        PAY_AMOUNT = #{record.payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.commissionAmount != null" >
+        COMMISSION_AMOUNT = #{record.commissionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.realAmount != null" >
+        REAL_AMOUNT = #{record.realAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.tradeState != null" >
+        TRADE_STATE = #{record.tradeState,jdbcType=DECIMAL},
+      </if>
+      <if test="record.callbackState != null" >
+        CALLBACK_STATE = #{record.callbackState,jdbcType=DECIMAL},
+      </if>
+      <if test="record.refundState != null" >
+        REFUND_STATE = #{record.refundState,jdbcType=DECIMAL},
+      </if>
+      <if test="record.refundAmount != null" >
+        REFUND_AMOUNT = #{record.refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="record.bankCode != null" >
+        BANK_CODE = #{record.bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bankName != null" >
+        BANK_NAME = #{record.bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.payIp != null" >
+        PAY_IP = #{record.payIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.callbackUrl != null" >
+        CALLBACK_URL = #{record.callbackUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nontifyUrl != null" >
+        NONTIFY_URL = #{record.nontifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.checkNo != null" >
+        CHECK_NO = #{record.checkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.depositNo != null" >
+        DEPOSIT_NO = #{record.depositNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.refundTime != null" >
+        REFUND_TIME = #{record.refundTime,jdbcType=DATE},
+      </if>
+      <if test="record.payUserId != null" >
+        PAY_USER_ID = #{record.payUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null" >
+        REMARK = #{record.remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update TB_PAY_ORDER
+    set PAY_NO = #{record.payNo,jdbcType=VARCHAR},
+      OUT_PAY_NO = #{record.outPayNo,jdbcType=VARCHAR},
+      GATE_ORDER_NO = #{record.gateOrderNo,jdbcType=VARCHAR},
+      BANK_ORDER_NO = #{record.bankOrderNo,jdbcType=VARCHAR},
+      CREATE_TIME = #{record.createTime,jdbcType=DATE},
+      EXP_DATE = #{record.expDate,jdbcType=DATE},
+      DEAL_TIME = #{record.dealTime,jdbcType=DATE},
+      CALLBACK_TIME = #{record.callbackTime,jdbcType=DATE},
+      PAY_AMOUNT = #{record.payAmount,jdbcType=DECIMAL},
+      COMMISSION_AMOUNT = #{record.commissionAmount,jdbcType=DECIMAL},
+      REAL_AMOUNT = #{record.realAmount,jdbcType=DECIMAL},
+      TRADE_STATE = #{record.tradeState,jdbcType=DECIMAL},
+      CALLBACK_STATE = #{record.callbackState,jdbcType=DECIMAL},
+      REFUND_STATE = #{record.refundState,jdbcType=DECIMAL},
+      REFUND_AMOUNT = #{record.refundAmount,jdbcType=DECIMAL},
+      BANK_CODE = #{record.bankCode,jdbcType=VARCHAR},
+      BANK_NAME = #{record.bankName,jdbcType=VARCHAR},
+      PAY_IP = #{record.payIp,jdbcType=VARCHAR},
+      CALLBACK_URL = #{record.callbackUrl,jdbcType=VARCHAR},
+      NONTIFY_URL = #{record.nontifyUrl,jdbcType=VARCHAR},
+      CHECK_NO = #{record.checkNo,jdbcType=VARCHAR},
+      DEPOSIT_NO = #{record.depositNo,jdbcType=VARCHAR},
+      REFUND_TIME = #{record.refundTime,jdbcType=DATE},
+      PAY_USER_ID = #{record.payUserId,jdbcType=VARCHAR},
+      REMARK = #{record.remark,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.payment.domain.PayOrder" >
+    update TB_PAY_ORDER
+    <set >
+      <if test="outPayNo != null" >
+        OUT_PAY_NO = #{outPayNo,jdbcType=VARCHAR},
+      </if>
+      <if test="gateOrderNo != null" >
+        GATE_ORDER_NO = #{gateOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="bankOrderNo != null" >
+        BANK_ORDER_NO = #{bankOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=DATE},
+      </if>
+      <if test="expDate != null" >
+        EXP_DATE = #{expDate,jdbcType=DATE},
+      </if>
+      <if test="dealTime != null" >
+        DEAL_TIME = #{dealTime,jdbcType=DATE},
+      </if>
+      <if test="callbackTime != null" >
+        CALLBACK_TIME = #{callbackTime,jdbcType=DATE},
+      </if>
+      <if test="payAmount != null" >
+        PAY_AMOUNT = #{payAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="commissionAmount != null" >
+        COMMISSION_AMOUNT = #{commissionAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="realAmount != null" >
+        REAL_AMOUNT = #{realAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="tradeState != null" >
+        TRADE_STATE = #{tradeState,jdbcType=DECIMAL},
+      </if>
+      <if test="callbackState != null" >
+        CALLBACK_STATE = #{callbackState,jdbcType=DECIMAL},
+      </if>
+      <if test="refundState != null" >
+        REFUND_STATE = #{refundState,jdbcType=DECIMAL},
+      </if>
+      <if test="refundAmount != null" >
+        REFUND_AMOUNT = #{refundAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="bankCode != null" >
+        BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+      </if>
+      <if test="bankName != null" >
+        BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      </if>
+      <if test="payIp != null" >
+        PAY_IP = #{payIp,jdbcType=VARCHAR},
+      </if>
+      <if test="callbackUrl != null" >
+        CALLBACK_URL = #{callbackUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="nontifyUrl != null" >
+        NONTIFY_URL = #{nontifyUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="checkNo != null" >
+        CHECK_NO = #{checkNo,jdbcType=VARCHAR},
+      </if>
+      <if test="depositNo != null" >
+        DEPOSIT_NO = #{depositNo,jdbcType=VARCHAR},
+      </if>
+      <if test="refundTime != null" >
+        REFUND_TIME = #{refundTime,jdbcType=DATE},
+      </if>
+      <if test="payUserId != null" >
+        PAY_USER_ID = #{payUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where PAY_NO = #{payNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.payment.domain.PayOrder" >
+    update TB_PAY_ORDER
+    set OUT_PAY_NO = #{outPayNo,jdbcType=VARCHAR},
+      GATE_ORDER_NO = #{gateOrderNo,jdbcType=VARCHAR},
+      BANK_ORDER_NO = #{bankOrderNo,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=DATE},
+      EXP_DATE = #{expDate,jdbcType=DATE},
+      DEAL_TIME = #{dealTime,jdbcType=DATE},
+      CALLBACK_TIME = #{callbackTime,jdbcType=DATE},
+      PAY_AMOUNT = #{payAmount,jdbcType=DECIMAL},
+      COMMISSION_AMOUNT = #{commissionAmount,jdbcType=DECIMAL},
+      REAL_AMOUNT = #{realAmount,jdbcType=DECIMAL},
+      TRADE_STATE = #{tradeState,jdbcType=DECIMAL},
+      CALLBACK_STATE = #{callbackState,jdbcType=DECIMAL},
+      REFUND_STATE = #{refundState,jdbcType=DECIMAL},
+      REFUND_AMOUNT = #{refundAmount,jdbcType=DECIMAL},
+      BANK_CODE = #{bankCode,jdbcType=VARCHAR},
+      BANK_NAME = #{bankName,jdbcType=VARCHAR},
+      PAY_IP = #{payIp,jdbcType=VARCHAR},
+      CALLBACK_URL = #{callbackUrl,jdbcType=VARCHAR},
+      NONTIFY_URL = #{nontifyUrl,jdbcType=VARCHAR},
+      CHECK_NO = #{checkNo,jdbcType=VARCHAR},
+      DEPOSIT_NO = #{depositNo,jdbcType=VARCHAR},
+      REFUND_TIME = #{refundTime,jdbcType=DATE},
+      PAY_USER_ID = #{payUserId,jdbcType=VARCHAR},
+      REMARK = #{remark,jdbcType=VARCHAR}
+    where PAY_NO = #{payNo,jdbcType=VARCHAR}
+  </update>
+  <cache />
+</mapper>

@@ -1,12 +1,20 @@
 package com.payment.trade.service.impl;
 
-import com.payment.comm.utils.alipay.config.AlipayConfig;
-import com.payment.trade.service.PayService;
+import com.payment.comm.base.exception.ExceptionHanlder;
+import com.payment.comm.base.exception.PaymentException;
+import com.payment.comm.errorCode.PayErrorCode;
+import com.payment.comm.errorCode.TradeErrorCode;
+import com.payment.domain.DepositOrder;
+import com.payment.domain.PayOrder;
+import com.payment.pay.bankRqData.BankRqData;
+import com.payment.pay.factory.PayGateFactory;
+import com.payment.trade.bo.PayBO;
+import com.payment.trade.service.*;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -16,131 +24,115 @@ import java.util.Map;
  * @version 2.0
  * @since 2015/8/10 15:26
  */
-@Service("payService")
+@Service
 public class PayServiceImpl implements PayService {
 
-//    // site订单servicea
-//    @Resource(name = "SiteOrderService")
-//    private SiteOrderService siteOrderService;
-//
-//    private Order checkOrder(Order order) {
-//        // 用来存储订单的总价格
-//        BigDecimal orderSumPrice = new BigDecimal(0.00);
-//        // 飞快验证主订单号
-//        if (null != order.getOrderOldCode()) {
-//            // 根据订单那的主订单号 查询主订单号下面所有的小订单信息
-//            List<Order> orders = siteOrderService.getPayOrderByOldCode(order.getOrderOldCode());
-//            // 如果需要支付的订单数大于1
-//            if (null != orders && orders.size() >= 1) {
-//                for (int i = 0; i < orders.size(); i++) {
-//                    // 获取单个的子订单信息
-//                    Order childOrder = orders.get(i);
-//                    // 如果订单的支付方式是货到付款 就不计算价格
-//                    if (!"0".equals(childOrder.getOrderLinePay())) {
-//                        // 把子订单的信息进行相加
-//                        orderSumPrice = orderSumPrice.add(childOrder.getOrderPrice());
-//                    }
-//                }
-//                // 把子订单的价格相加重新赋值给order对象 用于支付宝支付 不需持久化到数据库
-//                order.setOrderPrice(orderSumPrice);
-//                // 把主订单号赋值给订单单号 也是用于支付宝支付 不需要持久化到数据库
-//                order.setOrderCode(order.getOrderOldCode());
-//            }
-//        }
-//        return order;
-//    }
-//
-//    /**
-//     * 支付宝支付 1、 获取订单信息 2、 根据订单信息以及支付信息生成签名 3、 返回支付地址
-//     *
-//     * @param p
-//     *            支付宝配置信息
-//     * @param order
-//     *            订单信息（单笔订单支付是需要用到）
-//     * @author lih @since 2015年8月10日15:58:11
-//     * @return 支付地址
-//     */
-//    @Override
-//    public String getAlipay(Pay p, Order order, String goodsName, Long orderCount) {
-//        AlipayConfig.partner = p.getApiKey();
-//        AlipayConfig.key = p.getSecretKey();
-//        AlipayConfig.seller_email = p.getPayAccount();
-//        Order order1 = order;
-//
-//        // 支付类型
-//
-//        String paymentType = "1";
-//
-//        // 单次支付的订单大于在一笔以上
-//        String notifyUrl ="";
-//        // 单次支付的订单大于在一笔以上
-//        if (null != orderCount) {
-//            order1 = this.checkOrder(order);
-//            notifyUrl = p.getPayUrl() + "paysucccessybmulti.htm";
-//        }else{
-//            notifyUrl = p.getPayUrl() + "paysucccessyb.htm";
-//        }
-//
-//
-//        // 必填，不能修改
-//        // 服务器异步通知页面路径
-//
-//        // 需http://格式的完整路径，不能加?id=123这类自定义参数
-//
-//        // 页面跳转同步通知页面路径
-//        String returnUrl = p.getBackUrl();
-//        // 需http://格式的完整路径，不能加?id=123这类自定义参数，不能写成http://localhost/
-//
-//        // 商户订单号
-//        String outTradeNo = new String(order1.getOrderCode());
-//        // 商户网站订单系统中唯一订单号，必填
-//
-//        // 订单名称
-//        String subject = new String(goodsName);
-//        // 必填
-//
-//        // 付款金额
-//        String totalFee = new String(order1.getOrderPrice().toString());
-//        // 必填
-//
-//        // 订单描述
-//
-//        String body = new String("网购订单");
-//        // 商品展示地址
-//        String showUrl = new String("");
-//        // 需以http://开头的完整路径，例如：http://www.商户网址.com/myorder.html
-//
-//        // 防钓鱼时间戳
-//        String antiPhishingKey = "";
-//        // 若要使用请调用类文件submit中的query_timestamp函数
-//
-//        // 客户端的IP地址
-//        String exterInvokeIp = "";
-//
-//        // 非局域网的外网IP地址，如：221.0.0.1
-//
-//        // ////////////////////////////////////////////////////////////////////////////////
-//
-//        // 把请求参数打包成数组
-//        Map<String, String> sParaTemp = new HashMap<String, String>();
-//        sParaTemp.put("service", "create_direct_pay_by_user");
-//        sParaTemp.put("partner", AlipayConfig.partner);
-//        sParaTemp.put("seller_email", AlipayConfig.seller_email);
-//        sParaTemp.put("_input_charset", AlipayConfig.input_charset);
-//        sParaTemp.put("payment_type", paymentType);
-//        sParaTemp.put("notify_url", notifyUrl);
-//        sParaTemp.put("return_url", returnUrl);
-//        sParaTemp.put("out_trade_no", outTradeNo);
-//        sParaTemp.put("subject", subject);
-//        sParaTemp.put("total_fee", totalFee);
-//        sParaTemp.put("body", body);
-//        sParaTemp.put("show_url", showUrl);
-//        sParaTemp.put("anti_phishing_key", antiPhishingKey);
-//        sParaTemp.put("exter_invoke_ip", exterInvokeIp);
-//
-//        // 建立请求
-//        return AlipaySubmit.buildRequest(sParaTemp, "get", "确认");
-//
-//    }
+
+    @Autowired
+    DepositOrderService depositOrderService;
+
+    @Autowired
+    PayOrderService payOrderService;
+
+
+    public String buildBankHtml(String orderNo, String bankCode,String goodsName) throws PaymentException {
+        String html = buildBankHtmlInner(orderNo, bankCode, goodsName);
+        return html;
+
+    }
+
+    @Override
+    public String callback(Map<String, String[]> paraMap, String payNo, String remoteIp, String type) throws PaymentException {
+
+        if (paraMap == null || remoteIp == null || payNo == null) {
+            throw new PaymentException(PayErrorCode.ARGS_IS_NULL);
+        }
+
+        PayOrder order = payOrderService.findOne(payNo);
+        if (order == null) {
+            throw new PaymentException(PayErrorCode.PAY_ORDER_NOT_EXIST);
+        }
+
+        // 生成支付跳转页面
+        PayGateService payGateSer = PayGateFactory.getInstance(order.getBankCode());
+        if (payGateSer == null) {
+            throw new PaymentException(PayErrorCode.PAY_ADAPTER_EXCEPTION);
+        }
+        return payGateSer.callback(paraMap, order, type);
+
+    }
+
+    private String buildBankHtmlInner(String outChargeNo, String bankCode, String goodsName) throws PaymentException {
+
+        if (outChargeNo == null) {
+            throw new PaymentException(PayErrorCode.ARGS_IS_NULL);
+        }
+
+        DepositOrder depositOrder = depositOrderService.findOneByOutTradeNo(outChargeNo);
+
+        if (null == depositOrder) {
+            throw new PaymentException(TradeErrorCode.CHARGE_ORDER_NOT_EXIST);
+        }
+
+        // 构建跳转银行条件结构
+        PayBO payBO = new PayBO();
+        payBO.setAmount(new BigDecimal(depositOrder.getDepositAmount()));
+        payBO.setBankCode(bankCode);
+        payBO.setGoodsName(goodsName);
+        payBO.setOrderNo(depositOrder.getDepositNo());
+        return this.buildBankHtml(payBO);
+    }
+
+    /**
+     * 函数功能：调用支付网关获取跳转页面
+     *
+     * @param payBO
+     * @return
+     * @author Miner 2012-5-29 下午06:46:09
+     */
+    @Autowired
+    public String buildBankHtml(PayBO payBO) throws PaymentException {
+
+
+        BankRqData requestHandler = doPay(payBO);
+
+        String html = "";
+        try {
+            html = requestHandler.buildHtml();
+
+            if (StringUtils.isBlank(html)) {
+                throw new Exception("未获得跳转数据");
+            }
+        } catch (Exception e) {
+            throw new PaymentException(PayErrorCode.PAY_ADAPTER_EXCEPTION);
+        }
+
+        return html;
+    }
+
+    /**
+     * 根据用户支付请求参数生成支付订单，银行编号生成跳转支付页面
+     *
+     * @param payBO - 支付参数信息
+     */
+    private BankRqData doPay(PayBO payBO) throws PaymentException {
+        try {
+
+            // 创建网关订单
+            PayOrder order = payOrderService.createPayOrder(payBO);
+
+            // 生成支付跳转页面
+            PayGateService payGateSer = PayGateFactory.getInstance(payBO.getBankCode());
+            if (payGateSer == null) {
+                throw new PaymentException(PayErrorCode.PAY_ADAPTER_EXCEPTION);
+            }
+            BankRqData handler = payGateSer.buildHtml(order);
+            return handler;
+        } catch (Exception e) {
+            ExceptionHanlder.Process(e);
+            return null;
+        }
+    }
 
 }
+

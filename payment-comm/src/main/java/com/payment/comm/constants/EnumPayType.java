@@ -1,11 +1,9 @@
 package com.payment.comm.constants;
 
 public enum EnumPayType {
-    OLP("OLP", "在线支付", true, false), GRP("GRP", "货到付款", false, false), BTP("BTP", "转账汇款", false, false), PSP("PSP",
-            "邮政汇款", false, false), OBP("OBP", "余额支付", false, true), CTP("CTP", "卡类支付", false, false), UCA("UCA",
-            "网店加款", false, false), OCP("OCP", "积分支付", false, true), UNP("UNP", "组合支付", false, false), UCP("UCP",
-            "自助加款", false, false), CCP("CCP", "刷卡支付", false, false), CRP("CRP", "信用支付", false, true),
-    CAP("CAP", "现金支付", false, true);
+    OLP("OLP", "在线支付", true, false), GRP("GRP", "货到付款", false, false), BTP("BTP", "转账汇款", false, false),
+    OBP("OBP", "余额支付", false, true), OCP("OCP", "积分支付", false, true), UNP("UNP", "组合支付", false, false),
+    CRP("CRP", "信用支付", false, true), CAP("CAP", "现金支付", false, true);
 
     /**
      * 支付类型标识

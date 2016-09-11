@@ -2,8 +2,8 @@ package com.payment.trade.service;
 
 import com.payment.comm.base.exception.PaymentException;
 import com.payment.comm.base.service.BaseService;
-import com.payment.generator.domain.AcctUser;
-import com.payment.generator.domain.AcctUserCriteria;
+import com.payment.domain.User;
+import com.payment.domain.UserCriteria;
 import com.payment.user.bo.UserAcctResultBO;
 
 /**
@@ -13,9 +13,9 @@ import com.payment.user.bo.UserAcctResultBO;
  * 创 建 人 : 方超(OF716)  <br>
  * 修改时间:  16/1/28
  */
-public interface UserService extends BaseService<AcctUser,AcctUserCriteria> {
+public interface UserService extends BaseService<User,UserCriteria> {
 
-    AcctUser findUser(String buyerUserId) throws PaymentException;
+    User findUser(String buyerUserId) throws PaymentException;
 
     UserAcctResultBO queryUserAcctInfo(String userId);
 }

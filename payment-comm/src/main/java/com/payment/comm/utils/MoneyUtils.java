@@ -31,6 +31,7 @@ public class MoneyUtils {
         result = result.setScale(2, BigDecimal.ROUND_HALF_UP);
         return result;
     }
+
     /**
      * 系统金额单位转到元（精确到分）
      *

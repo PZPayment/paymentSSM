@@ -85,7 +85,10 @@
             <artifactId>javaee-api</artifactId>
             <version>7.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>oracle</groupId>
+            <artifactId>ojdbc14</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

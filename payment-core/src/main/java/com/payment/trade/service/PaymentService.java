@@ -14,7 +14,7 @@ import com.payment.trade.bo.payMethod.PayMethod;
  */
 public interface PaymentService {
 
-    PaymentResultBO payment(PaymentBO paymentBO, PayMethod payMethod) throws PaymentException;
+    PaymentResultBO payment(PaymentBO paymentBO, PayMethod payMethod, boolean settleType) throws PaymentException;
 
     boolean paymentSettle(PaymentBO paymentBO) throws PaymentException;
 

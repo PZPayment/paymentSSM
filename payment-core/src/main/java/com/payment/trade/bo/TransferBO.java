@@ -2,8 +2,7 @@ package com.payment.trade.bo;
 
 import com.payment.comm.base.bean.BaseBean;
 import com.payment.comm.constants.EnumTransferType;
-import com.payment.generator.domain.AcctUser;
-import lombok.Data;
+import com.payment.domain.User;
 
 /**
  * Created by fangchao on 15/12/25.
@@ -15,11 +14,11 @@ public class TransferBO extends BaseBean {
     /**
      * 转出
      */
-    private AcctUser fromUser;
+    private User fromUser;
     /**
      * 转入
      */
-    private AcctUser toUser;
+    private User toUser;
     /**
      * 转出金额
      */
@@ -30,23 +29,32 @@ public class TransferBO extends BaseBean {
     private Long toAmount;
 
     /**
+     * 转出账本
+     */
+    private String fromBalance;
+    /**
+     * 转入账本
+     */
+    private String toBalance;
+
+    /**
      * 业务类型编号
      */
     private EnumTransferType transferType;
 
-    public AcctUser getFromUser() {
+    public User getFromUser() {
         return fromUser;
     }
 
-    public void setFromUser(AcctUser fromUser) {
+    public void setFromUser(User fromUser) {
         this.fromUser = fromUser;
     }
 
-    public AcctUser getToUser() {
+    public User getToUser() {
         return toUser;
     }
 
-    public void setToUser(AcctUser toUser) {
+    public void setToUser(User toUser) {
         this.toUser = toUser;
     }
 
@@ -72,5 +80,21 @@ public class TransferBO extends BaseBean {
 
     public void setTransferType(EnumTransferType transferType) {
         this.transferType = transferType;
+    }
+
+    public String getFromBalance() {
+        return fromBalance;
+    }
+
+    public void setFromBalance(String fromBalance) {
+        this.fromBalance = fromBalance;
+    }
+
+    public String getToBalance() {
+        return toBalance;
+    }
+
+    public void setToBalance(String toBalance) {
+        this.toBalance = toBalance;
     }
 }

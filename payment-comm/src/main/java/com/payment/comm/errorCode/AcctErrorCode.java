@@ -2,7 +2,8 @@ package com.payment.comm.errorCode;
 
 /**
  * 包      名: com.payment.comm.constants  <br>
- * 描      述:  账户资金错误编码                     <br>
+ * 描      述:  账户资金错误编码
+ * 号      段:  200000-299999           <br>
  * 创 建 人 : kan <br>
  */
 public class AcctErrorCode  extends BaseErrorCode{

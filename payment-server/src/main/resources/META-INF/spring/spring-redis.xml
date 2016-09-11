@@ -7,7 +7,6 @@
             http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 <context:property-placeholder location="classpath:redis.properties" />
-    <context:component-scan base-package="com.payment.comm.handler" />
 
     <bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
         <!--最大空闲连接数-->

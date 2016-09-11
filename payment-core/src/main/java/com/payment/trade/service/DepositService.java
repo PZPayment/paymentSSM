@@ -1,7 +1,9 @@
 package com.payment.trade.service;
 
 import com.payment.comm.base.exception.PaymentException;
+import com.payment.trade.bo.DelayChargeResultBO;
 import com.payment.trade.bo.DepositBO;
+import com.payment.trade.bo.DepositNotifyBO;
 import com.payment.trade.bo.payMethod.PayMethod;
 
 /**
@@ -21,5 +23,13 @@ public interface DepositService {
      * @throws PaymentException
      * @author kan
      */
-    String createDeposit(DepositBO depositBO, PayMethod payMethod,short rechargeType) throws PaymentException;
+    String createDeposit(DepositBO depositBO, PayMethod payMethod, short rechargeType) throws PaymentException;
+
+    /**
+     * 支付系统成功通知核心交易处理
+     *
+     * @param depositNotifyBO 充值通知BO
+     */
+    DelayChargeResultBO depositNotify(DepositNotifyBO depositNotifyBO) throws PaymentException;
+
 }

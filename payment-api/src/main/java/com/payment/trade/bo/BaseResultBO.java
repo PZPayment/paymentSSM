@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class BaseResultBO implements Serializable {
 
 
-    private static final long serialVersionUID = 2772828545069808903L;
+    private static final long serialVersionUID = 2366205167600992273L;
     private Integer resultCode;
 
     private String resultMsg;

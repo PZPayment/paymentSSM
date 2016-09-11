@@ -3,6 +3,7 @@ package com.payment.trade.bo;
 
 import com.payment.comm.base.bo.BaseApiBean;
 import com.payment.comm.base.exception.PaymentException;
+import com.payment.comm.constants.EnumPayType;
 
 /**
  * 包      名: com.payment.trade.bo<br>
@@ -104,6 +105,11 @@ public class DepositNotifyBO extends BaseApiBean {
      * 加点是否需要审核
      */
     private boolean isChargeCheck;
+
+    /**
+     * 交易类型
+     */
+    private EnumPayType payType;
 
     public String getRemark() {
         return remark;
@@ -263,6 +269,14 @@ public class DepositNotifyBO extends BaseApiBean {
 
     public void setGateName(String gateName) {
         this.gateName = gateName;
+    }
+
+    public EnumPayType getPayType() {
+        return payType;
+    }
+
+    public void setPayType(EnumPayType payType) {
+        this.payType = payType;
     }
 
     @Override

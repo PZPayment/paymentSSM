@@ -2,6 +2,8 @@ package com.payment.trade.bo;
 
 import com.payment.comm.base.bo.BaseApiBean;
 import com.payment.comm.base.exception.PaymentException;
+import com.payment.comm.utils.MoneyUtils;
+import org.apache.ibatis.ognl.OgnlOps;
 
 import java.math.BigDecimal;
 
@@ -27,10 +29,10 @@ public class PaymentBO extends BaseApiBean {
      */
     private String sellerUserId;
     /**
-     * 支付金额
+     * 结算金额
      * 必传
      */
-    private BigDecimal paymount;
+    private BigDecimal settleAmount;
 
     /**
      * 支付方式
@@ -71,14 +73,6 @@ public class PaymentBO extends BaseApiBean {
         this.sellerUserId = sellerUserId;
     }
 
-    public BigDecimal getPaymount() {
-        return paymount;
-    }
-
-    public void setPaymount(BigDecimal paymount) {
-        this.paymount = paymount;
-    }
-
     public String getPayType() {
         return payType;
     }
@@ -107,13 +101,22 @@ public class PaymentBO extends BaseApiBean {
     public boolean validate() throws PaymentException {
         checkField(buyerUserId);
         checkField(sellerUserId);
-        checkField(paymount);
-        checkField(payType);
+        checkField(settleAmount);
        return true;
     }
 
     @Override
     public void formatAmount() {
-        super.formatAmount();
+        if (!isFormat()) {
+            settleAmount = MoneyUtils.yuanTosysUnitP(settleAmount);
+            setFormat(true);
+        }
+    }
+    public BigDecimal getSettleAmount() {
+        return settleAmount;
+    }
+
+    public void setSettleAmount(BigDecimal settleAmount) {
+        this.settleAmount = settleAmount;
     }
 }
