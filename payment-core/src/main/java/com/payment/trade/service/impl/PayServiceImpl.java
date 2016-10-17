@@ -90,7 +90,7 @@ public class PayServiceImpl implements PayService {
      * @return
      * @author Miner 2012-5-29 下午06:46:09
      */
-    @Autowired
+    @Override
     public String buildBankHtml(PayBO payBO) throws PaymentException {
 
 
