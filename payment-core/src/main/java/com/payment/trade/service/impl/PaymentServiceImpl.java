@@ -108,8 +108,8 @@ public class PaymentServiceImpl implements PaymentService {
         fundsRecordBO.setInFundsType(EnumFundsType.ORDER_SETTLE);
         fundsRecordBO.setOutFundsType(EnumFundsType.ORDER_CONSUMER);
 
-        fundsRecordBO.setOptUser("system");
-        fundsRecordBO.setOptUserName("system");
+        fundsRecordBO.setOptUser(SystemConstants.SYSTEM_OPT);
+        fundsRecordBO.setOptUserName(SystemConstants.SYSTEM_OPT);
         fundsRecordBO.setOrderNo(paymentOrder.getPaymentNo());
         fundsRecordBO.setOutOrderNo(paymentOrder.getOutPaymentNo());
         fundsRecordBO.setRefundDesc("订单支付 单号:" + paymentOrder.getOutPaymentNo());

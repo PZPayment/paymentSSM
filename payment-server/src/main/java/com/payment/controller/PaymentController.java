@@ -3,6 +3,7 @@ package com.payment.controller;
 import com.payment.comm.utils.DateUtils;
 import com.payment.trade.PayProvider;
 import com.payment.trade.PaymentProvider;
+import com.payment.trade.bo.PayBO;
 import com.payment.trade.bo.PayResultBO;
 import com.payment.trade.bo.PaymentBO;
 import com.payment.trade.bo.RefundBO;
@@ -20,7 +21,6 @@ import java.util.Date;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 /**
- *
  * 包      名: com.kan.trade.payment  <br>
  * 描      述:  支付接口请求
  * 创 建 人 : 方超(OF716)  <br>
@@ -36,13 +36,13 @@ public class PaymentController {
     @Autowired
     PayProvider payProvider;
 
-    @RequestMapping(value="/payment",method = GET)
+    @RequestMapping(value = "/payment", method = GET)
     String home() {
         PaymentBO paymentBO = new PaymentBO();
         paymentBO.setBuyerUserId("A882699");
         paymentBO.setSellerUserId("A882690");
         paymentBO.setBankCode("0990");
-        String outderNO = "X"+ DateUtils.toString(new Date());
+        String outderNO = "X" + DateUtils.toString(new Date());
         paymentBO.setOrderNo(outderNO);
         paymentBO.setSettleAmount(new BigDecimal("10"));
         PayMethodOLP payMethod = new PayMethodOLP();
@@ -52,19 +52,23 @@ public class PaymentController {
         refundBO.setOrderNo(outderNO);
         refundBO.setRefundAmount(new BigDecimal("10"));
         try {
-            System.out.println(paymentProvider.realTimePayment(paymentBO,payMethod));
+            System.out.println(paymentProvider.realTimePayment(paymentBO, payMethod));
             System.out.println(paymentProvider.refund(refundBO));
         } catch (Exception e) {
             System.out.println(e);
         }
         return "hellow";
     }
-    @RequestMapping(value="/pay/{depositNo}",method = GET)
+
+    @RequestMapping(value = "/pay/{depositNo}", method = GET)
     String pay(HttpServletRequest httpServletRequest, @PathVariable String depositNo) {
         try {
-            PayResultBO resultBO =  payProvider.getBankDate(depositNo,"WX0002");
+            PayBO payBO = new PayBO();
+            payBO.setOrderNo(depositNo);
+            payBO.setBankCode("WX0002");
+            PayResultBO resultBO = payProvider.getBankDate(payBO);
             String str = resultBO.getBankDate();
-            httpServletRequest.setAttribute("date",str.substring(str.indexOf("weixin"),str.length()-2));
+            httpServletRequest.setAttribute("date", str.substring(str.indexOf("weixin"), str.length() - 2));
         } catch (Exception e) {
             System.out.println(e);
         }

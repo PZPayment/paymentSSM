@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/pay")
-public class PayController {
+public class
+PayController {
 
 //
 //    @RequestMapping(value="/buldHtml",method = GET)
