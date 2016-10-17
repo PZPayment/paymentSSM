@@ -11,7 +11,7 @@
     <result column="PAY_PSW_TYPE" property="payPswType" jdbcType="DECIMAL" />
     <result column="ID_TYPE" property="idType" jdbcType="DECIMAL" />
     <result column="ID_NO" property="idNo" jdbcType="VARCHAR" />
-    <result column="USER_STATE" property="userState" jdbcType="DECIMAL" />
+    <result column="ACCT_STATE" property="acctState" jdbcType="DECIMAL" />
     <result column="REAL_NAME" property="realName" jdbcType="VARCHAR" />
     <result column="EMAILL" property="emaill" jdbcType="VARCHAR" />
     <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
@@ -80,7 +80,7 @@
   </sql>
   <sql id="Base_Column_List" >
     USER_ID, PAY_PSW, IS_USE_PAY_PSW, COUNT_INVALID_PWD, PWD_STRENGTH, PAY_BASE_KEY, 
-    PAY_PSW_TYPE, ID_TYPE, ID_NO, USER_STATE, REAL_NAME, EMAILL, MOBILE, REAL_CHECK, 
+    PAY_PSW_TYPE, ID_TYPE, ID_NO, ACCT_STATE, REAL_NAME, EMAILL, MOBILE, REAL_CHECK,
     REG_IP, REG_TIME, COMPANY_NAME
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.payment.domain.UserCriteria" >
@@ -117,13 +117,13 @@
     insert into TB_USER (USER_ID, PAY_PSW, IS_USE_PAY_PSW, 
       COUNT_INVALID_PWD, PWD_STRENGTH, PAY_BASE_KEY, 
       PAY_PSW_TYPE, ID_TYPE, ID_NO, 
-      USER_STATE, REAL_NAME, EMAILL, 
+      ACCT_STATE, REAL_NAME, EMAILL,
       MOBILE, REAL_CHECK, REG_IP, 
       REG_TIME, COMPANY_NAME)
     values (#{userId,jdbcType=VARCHAR}, #{payPsw,jdbcType=VARCHAR}, #{isUsePayPsw,jdbcType=DECIMAL}, 
       #{countInvalidPwd,jdbcType=DECIMAL}, #{pwdStrength,jdbcType=DECIMAL}, #{payBaseKey,jdbcType=VARCHAR}, 
       #{payPswType,jdbcType=DECIMAL}, #{idType,jdbcType=DECIMAL}, #{idNo,jdbcType=VARCHAR}, 
-      #{userState,jdbcType=DECIMAL}, #{realName,jdbcType=VARCHAR}, #{emaill,jdbcType=VARCHAR}, 
+      #{acctState,jdbcType=DECIMAL}, #{realName,jdbcType=VARCHAR}, #{emaill,jdbcType=VARCHAR},
       #{mobile,jdbcType=VARCHAR}, #{realCheck,jdbcType=DECIMAL}, #{regIp,jdbcType=VARCHAR}, 
       #{regTime,jdbcType=DATE}, #{companyName,jdbcType=VARCHAR})
   </insert>
@@ -157,8 +157,8 @@
       <if test="idNo != null" >
         ID_NO,
       </if>
-      <if test="userState != null" >
-        USER_STATE,
+      <if test="acctState != null" >
+        ACCT_STATE,
       </if>
       <if test="realName != null" >
         REAL_NAME,
@@ -210,8 +210,8 @@
       <if test="idNo != null" >
         #{idNo,jdbcType=VARCHAR},
       </if>
-      <if test="userState != null" >
-        #{userState,jdbcType=DECIMAL},
+      <if test="acctState != null" >
+        #{acctState,jdbcType=DECIMAL},
       </if>
       <if test="realName != null" >
         #{realName,jdbcType=VARCHAR},
@@ -272,8 +272,8 @@
       <if test="record.idNo != null" >
         ID_NO = #{record.idNo,jdbcType=VARCHAR},
       </if>
-      <if test="record.userState != null" >
-        USER_STATE = #{record.userState,jdbcType=DECIMAL},
+      <if test="record.acctState != null" >
+        ACCT_STATE = #{record.acctState,jdbcType=DECIMAL},
       </if>
       <if test="record.realName != null" >
         REAL_NAME = #{record.realName,jdbcType=VARCHAR},
@@ -312,7 +312,7 @@
       PAY_PSW_TYPE = #{record.payPswType,jdbcType=DECIMAL},
       ID_TYPE = #{record.idType,jdbcType=DECIMAL},
       ID_NO = #{record.idNo,jdbcType=VARCHAR},
-      USER_STATE = #{record.userState,jdbcType=DECIMAL},
+      ACCT_STATE = #{record.acctState,jdbcType=DECIMAL},
       REAL_NAME = #{record.realName,jdbcType=VARCHAR},
       EMAILL = #{record.emaill,jdbcType=VARCHAR},
       MOBILE = #{record.mobile,jdbcType=VARCHAR},
@@ -351,8 +351,8 @@
       <if test="idNo != null" >
         ID_NO = #{idNo,jdbcType=VARCHAR},
       </if>
-      <if test="userState != null" >
-        USER_STATE = #{userState,jdbcType=DECIMAL},
+      <if test="acctState != null" >
+        ACCT_STATE = #{acctState,jdbcType=DECIMAL},
       </if>
       <if test="realName != null" >
         REAL_NAME = #{realName,jdbcType=VARCHAR},
@@ -388,7 +388,7 @@
       PAY_PSW_TYPE = #{payPswType,jdbcType=DECIMAL},
       ID_TYPE = #{idType,jdbcType=DECIMAL},
       ID_NO = #{idNo,jdbcType=VARCHAR},
-      USER_STATE = #{userState,jdbcType=DECIMAL},
+      ACCT_STATE = #{acctState,jdbcType=DECIMAL},
       REAL_NAME = #{realName,jdbcType=VARCHAR},
       EMAILL = #{emaill,jdbcType=VARCHAR},
       MOBILE = #{mobile,jdbcType=VARCHAR},
