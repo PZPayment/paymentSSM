@@ -49,7 +49,7 @@ public class PayOrderServiceImpl extends BaseServiceImpl<PayOrder, PayOrderCrite
         payOrder.setPayNo(this.generatePayNo());
         payOrder.setBankCode(payBO.getBankCode());
         payOrder.setDepositNo(payBO.getOrderNo());
-        payOrder.setPayAmount(payBO.getAmount());
+        payOrder.setPayAmount(payBO.getAmount().longValue());
         return this.create(payOrder);
     }
 }
