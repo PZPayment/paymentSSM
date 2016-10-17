@@ -62,9 +62,9 @@ public class PaymentController {
     @RequestMapping(value="/pay/{depositNo}",method = GET)
     String pay(HttpServletRequest httpServletRequest, @PathVariable String depositNo) {
         try {
-            PayResultBO resultBO =  payProvider.getBankDate(depositNo,"WX0002");
-            String str = resultBO.getBankDate();
-            httpServletRequest.setAttribute("date",str.substring(str.indexOf("weixin"),str.length()-2));
+            //PayResultBO resultBO =  payProvider.getBankDate(depositNo,"WX0002");
+            //String str = resultBO.getBankDate();
+            //httpServletRequest.setAttribute("date",str.substring(str.indexOf("weixin"),str.length()-2));
         } catch (Exception e) {
             System.out.println(e);
         }
